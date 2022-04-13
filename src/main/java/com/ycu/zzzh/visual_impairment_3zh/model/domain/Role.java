@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.model;
+package com.ycu.zzzh.visual_impairment_3zh.dao.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,27 +8,22 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 
- * @TableName user
+ * 角色信息
+ * @TableName role
  */
-@TableName(value ="user")
+@TableName(value ="role")
 @Data
-public class User implements Serializable {
+public class Role implements Serializable {
     /**
-     * 
+     * 角色ID
      */
     @TableId(type = IdType.AUTO)
-    private Integer userid;
+    private Integer rid;
 
     /**
-     * 
+     * 角色名称
      */
-    private String username;
-
-    /**
-     * 
-     */
-    private String pwd;
+    private String rname;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
