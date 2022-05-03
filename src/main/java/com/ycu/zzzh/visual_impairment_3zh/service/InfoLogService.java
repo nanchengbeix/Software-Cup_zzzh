@@ -1,9 +1,8 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.service;
+package com.ycu.zzzh.visual_impairment_3zh.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.InfoLog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

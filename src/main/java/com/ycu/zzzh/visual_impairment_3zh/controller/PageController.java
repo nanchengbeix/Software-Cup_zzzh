@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 public class PageController {
-    //声明公共单元方法完成页面的内部转发
+    /**
+     * 声明公共单元方法完成页面的内部转发
+     */
     @RequestMapping("{uri}")
     public String getPage(@PathVariable String uri){
         return uri;

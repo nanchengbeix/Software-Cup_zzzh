@@ -1,94 +1,100 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--&lt;!&ndash;日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL &ndash;&gt;-->
-<!--&lt;!&ndash;Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出&ndash;&gt;-->
-<!--&lt;!&ndash;monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数&ndash;&gt;-->
-<!--<configuration status="WARN" monitorInterval="30">-->
-<!--    &lt;!&ndash;全局属性 &ndash;&gt;-->
-<!--    <Properties>-->
-<!--        <Property name="LOG_FILE_PATH">D:/logs</Property>-->
-<!--        &lt;!&ndash; linux日志存放路径 <Property name="LOG_FILE_PATH">/usr/logs</Property> &ndash;&gt;-->
-<!--    </Properties>-->
-<!--    <CustomLevels>-->
-<!--        <CustomLevel name="OPERATING" intLevel="350" />-->
-<!--    </CustomLevels>-->
-<!--    &lt;!&ndash;先定义所有的appender&ndash;&gt;-->
-<!--    <appenders>-->
-<!--        &lt;!&ndash;这个输出控制台的配置&ndash;&gt;-->
-<!--        <console name="Console" target="SYSTEM_OUT">-->
-<!--            &lt;!&ndash;输出日志的格式&ndash;&gt;-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出-->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<configuration status="WARN" monitorInterval="30">
+    <!--全局属性 -->
+    <Properties>
+        <Property name="LOG_FILE_PATH">D:/logs</Property>
+        <!-- linux日志存放路径 <Property name="LOG_FILE_PATH">/usr/logs</Property> -->
+    </Properties>
+    <CustomLevels>
+        <CustomLevel name="OPERATING" intLevel="350" />
+    </CustomLevels>
+    <!--先定义所有的appender-->
+    <appenders>
+        <!--这个输出控制台的配置-->
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>
+        </console>
+<!--        &lt;!&ndash; 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档&ndash;&gt;-->
+<!--        <RollingFile name="RollingFileInfo" fileName="${LOG_FILE_PATH}/info.log"-->
+<!--                     filePattern="${LOG_FILE_PATH}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">-->
+<!--            &lt;!&ndash;控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;-->
+<!--            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>-->
 <!--            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>-->
-<!--        </console>-->
-<!--&lt;!&ndash;        &lt;!&ndash;文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <File name="log" fileName="${LOG_FILE_PATH}/log/test.log" append="false">&ndash;&gt;-->
-<!--&lt;!&ndash;            <PatternLayout pattern="%d{HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        </File>&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <RollingFile name="RollingFileInfo" fileName="${LOG_FILE_PATH}/info.log"&ndash;&gt;-->
-<!--&lt;!&ndash;                     filePattern="${LOG_FILE_PATH}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">&ndash;&gt;-->
-<!--&lt;!&ndash;            &lt;!&ndash;控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <Policies>&ndash;&gt;-->
-<!--&lt;!&ndash;                <TimeBasedTriggeringPolicy/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <SizeBasedTriggeringPolicy size="100 MB"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            </Policies>&ndash;&gt;-->
-<!--&lt;!&ndash;        </RollingFile>&ndash;&gt;-->
-<!--&lt;!&ndash;        <RollingFile name="RollingFileWarn" fileName="${LOG_FILE_PATH}/warn.log"&ndash;&gt;-->
-<!--&lt;!&ndash;                     filePattern="${LOG_FILE_PATH}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">&ndash;&gt;-->
-<!--&lt;!&ndash;            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <Policies>&ndash;&gt;-->
-<!--&lt;!&ndash;                <TimeBasedTriggeringPolicy/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <SizeBasedTriggeringPolicy size="100 MB"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            </Policies>&ndash;&gt;-->
-<!--&lt;!&ndash;            &lt;!&ndash; DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            <DefaultRolloverStrategy max="20"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        </RollingFile>&ndash;&gt;-->
-<!--&lt;!&ndash;        <RollingFile name="RollingFileError" fileName="${LOG_FILE_PATH}/error.log"&ndash;&gt;-->
-<!--&lt;!&ndash;                     filePattern="${LOG_FILE_PATH}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">&ndash;&gt;-->
-<!--&lt;!&ndash;            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <Policies>&ndash;&gt;-->
-<!--&lt;!&ndash;                <TimeBasedTriggeringPolicy/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <SizeBasedTriggeringPolicy size="100 MB"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            </Policies>&ndash;&gt;-->
-<!--&lt;!&ndash;        </RollingFile>&ndash;&gt;-->
-<!--        &lt;!&ndash;写入数据库配置，在Logger中设置日志级别为info&ndash;&gt;-->
-<!--        <JDBC name="DatabaseAppender" tableName="info_log">-->
-<!--            <ConnectionFactory class="com.ycu.zzzh.visual_impairment_3zh.utils.ConnectionFactory" method="getDatabaseConnection" />-->
-<!--            <Column name="log_date" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}"/>-->
-<!--            <Column name="log_class" pattern="%c" />-->
-<!--            <Column name="log_method" pattern="%M" />-->
-<!--            <Column name="log_level" pattern="%p" />-->
-<!--            <Column name="log_message" pattern="%m"/>-->
-<!--        </JDBC>-->
-<!--        &lt;!&ndash;异步AsyncAppender进行配置直接引用上面的RollingFile的name&ndash;&gt;-->
-<!--        <Async name="Async">-->
-<!--            <AppenderRef ref="DatabaseAppender"/>-->
-<!--        </Async>-->
-<!--    </appenders>-->
-<!--    &lt;!&ndash;然后定义logger，只有定义了logger并引入的appender，appender才会生效&ndash;&gt;-->
-<!--    <loggers>-->
-<!--        &lt;!&ndash;过滤掉spring和mybatis的一些无用的DEBUG信息&ndash;&gt;-->
-<!--        <logger name="org.springframework" level="INFO" additivity="false"></logger>-->
-<!--        <logger name="com.zaxxer" level="INFO" additivity="false"></logger>-->
-<!--        <logger name="org.mybatis" level="" additivity="false">-->
-<!--            <appender-ref ref="Async" level="info"/>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy/>-->
+<!--                <SizeBasedTriggeringPolicy size="100 MB"/>-->
+<!--            </Policies>-->
+<!--        </RollingFile>-->
+<!--        <RollingFile name="RollingFileWarn" fileName="${LOG_FILE_PATH}/warn.log"-->
+<!--                     filePattern="${LOG_FILE_PATH}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">-->
+<!--            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>-->
+<!--            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy/>-->
+<!--                <SizeBasedTriggeringPolicy size="100 MB"/>-->
+<!--            </Policies>-->
+<!--            &lt;!&ndash; DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 &ndash;&gt;-->
+<!--            <DefaultRolloverStrategy max="20"/>-->
+<!--        </RollingFile>-->
+<!--        <RollingFile name="RollingFileError" fileName="${LOG_FILE_PATH}/error.log"-->
+<!--                     filePattern="${LOG_FILE_PATH}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">-->
+<!--            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>-->
+<!--            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n"/>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy/>-->
+<!--                <SizeBasedTriggeringPolicy size="100 MB"/>-->
+<!--            </Policies>-->
+<!--        </RollingFile>-->
+        <!--写入数据库配置，在Logger中设置日志级别为info-->
+        <JDBC name="DatabaseAppender" tableName="info_log">
+            <ConnectionFactory class="com.ycu.zzzh.visual_impairment_3zh.utils.ConnectionFactory" method="getDatabaseConnection" />
+            <Column name="create_time" pattern="%d{yyyy-MM-dd HH:mm:ss}"/>
+            <Column name="log_class" pattern="%c" />
+            <Column name="log_level" pattern="%p" />
+            <Column name="log_message" pattern="%m"/>
+        </JDBC>
+        <!--写入数据库配置，在Logger中设置日志级别为debug-->
+        <JDBC name="DatabaseAppender2" tableName="debug_log">
+            <ConnectionFactory class="com.ycu.zzzh.visual_impairment_3zh.utils.ConnectionFactory" method="getDatabaseConnection" />
+            <Column name="create_time" pattern="%d{yyyy-MM-dd HH:mm:ss}"/>
+            <Column name="log_class" pattern="%c" />
+            <Column name="log_level" pattern="%p" />
+            <Column name="log_message" pattern="%m"/>
+        </JDBC>
+        <!--异步AsyncAppender进行配置直接引用上面的JDBC的name-->
+        <Async name="AsyncInfo">
+            <AppenderRef ref="DatabaseAppender"/>
+        </Async>
+        <Async name="AsyncDebug">
+            <AppenderRef ref="DatabaseAppender2"/>
+        </Async>
+    </appenders>
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.springframework" level="INFO" additivity="false"></logger>
+        <logger name="com.zaxxer" level="INFO" additivity="false"></logger>
+<!--        <logger name="org.mybatis" level="debug" additivity="false">-->
 <!--        </logger>-->
-<!--        <logger name="com.ycu.zzzh.visual_impairment_3zh.dao" level="DEBUG" additivity="false">-->
-<!--            <AppenderRef ref="Console" />-->
-<!--        </logger>-->
+        <logger name="com.ycu.zzzh.visual_impairment_3zh.mapper" level="debug" additivity="false">
+            <appender-ref ref="Console" level="debug"/>
+            <appender-ref ref="AsyncDebug" level="debug"/>
+        </logger>
 
-<!--        <logger name="com.ycu.zzzh.visual_impairment_3zh" level="info" additivity="false">-->
-<!--            <appender-ref ref="Console" level="info"/>-->
-<!--            <appender-ref ref="" level=""/>-->
-<!--        </logger>-->
-<!--        <root level="debug">-->
-<!--            <appender-ref ref="Console"/>-->
-<!--&lt;!&ndash;            <appender-ref ref="RollingFileInfo"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <appender-ref ref="RollingFileWarn"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <appender-ref ref="RollingFileError"/>&ndash;&gt;-->
-<!--            <appender-ref ref="Async" level="info"/>-->
-<!--        </root>-->
-<!--    </loggers>-->
-<!--</configuration>-->
+        <logger name="com.ycu.zzzh.visual_impairment_3zh" level="info" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="AsyncInfo"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="Console"/>
+<!--            <appender-ref ref="RollingFileInfo"/>-->
+<!--            <appender-ref ref="RollingFileWarn"/>-->
+<!--            <appender-ref ref="RollingFileError"/>-->
+
+        </root>
+    </loggers>
+</configuration>

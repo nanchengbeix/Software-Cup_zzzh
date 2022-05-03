@@ -1,7 +1,9 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.service;
+package com.ycu.zzzh.visual_impairment_3zh.service;
 
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.DebugLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author 胡富国
@@ -10,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface DebugLogService extends IService<DebugLog> {
 
+
+    List<DebugLog> selLogsService();
 }

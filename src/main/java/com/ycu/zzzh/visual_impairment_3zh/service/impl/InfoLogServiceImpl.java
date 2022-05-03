@@ -1,9 +1,9 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.service.impl;
+package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.InfoLog;
-import com.ycu.zzzh.visual_impairment_3zh.dao.service.InfoLogService;
-import com.ycu.zzzh.visual_impairment_3zh.dao.mapper.InfoLogMapper;
+import com.ycu.zzzh.visual_impairment_3zh.service.InfoLogService;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.InfoLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

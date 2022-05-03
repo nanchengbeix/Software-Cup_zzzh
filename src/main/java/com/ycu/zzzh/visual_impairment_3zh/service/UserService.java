@@ -1,7 +1,7 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.service;
+package com.ycu.zzzh.visual_impairment_3zh.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.PageResult;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 
 /**
@@ -12,8 +12,10 @@ import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 public interface UserService extends IService<User> {
 
     //添加用户信息
+
     int addUserInfoService(User user);
     //根据条件分页查询数据信息
     PageResult<User> selUserInfoService(Integer page, Integer rows, String uname, String status,String phone);
 
+    User findByUserName(String username);
 }

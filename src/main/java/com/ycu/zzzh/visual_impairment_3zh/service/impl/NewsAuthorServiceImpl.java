@@ -1,9 +1,9 @@
-package generator.service.impl;
+package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.NewsAuthor;
-import generator.service.NewsAuthorService;
-import generator.mapper.NewsAuthorMapper;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsAuthor;
+import com.ycu.zzzh.visual_impairment_3zh.service.NewsAuthorService;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsAuthorMapper;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,6 +1,6 @@
-package generator.service;
+package com.ycu.zzzh.visual_impairment_3zh.service;
 
-import generator.domain.NewsSort;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsSort;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

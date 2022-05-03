@@ -5,40 +5,42 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * 管理员信息
- * @TableName admin
+ * 
+ * @TableName debug_log
  */
-@TableName(value ="admin")
+@TableName(value ="debug_log")
 @Data
-public class Admin implements Serializable {
+public class DebugLog implements Serializable {
     /**
-     * 管理员ID
+     * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer aid;
+    private Integer logId;
 
     /**
-     * 管理员名称
+     * 日期
      */
-    private String aname;
+    @TableId
+    private Date createTime;
 
     /**
-     * 管理员密码
+     * 日志信息所在类
      */
-    private String pwd;
+    private String logClass;
 
     /**
-     * 角色名称
+     * Log级别 info warndebug error等
      */
-    private String roleName;
+    private String logLevel;
 
     /**
-     * 角色ID
+     * Log信息
      */
-    private Integer roleId;
+    private String logMessage;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

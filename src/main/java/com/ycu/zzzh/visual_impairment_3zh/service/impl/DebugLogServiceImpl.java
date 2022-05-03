@@ -1,10 +1,14 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.service.impl;
+package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.DebugLog;
-import com.ycu.zzzh.visual_impairment_3zh.dao.service.DebugLogService;
-import com.ycu.zzzh.visual_impairment_3zh.dao.mapper.DebugLogMapper;
+import com.ycu.zzzh.visual_impairment_3zh.service.DebugLogService;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.DebugLogMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * @author 胡富国
@@ -14,7 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DebugLogServiceImpl extends ServiceImpl<DebugLogMapper, DebugLog>
     implements DebugLogService{
-
+    @Autowired
+    private DebugLogMapper debugLogMapper;
+    @Override
+    public List<DebugLog> selLogsService() {
+        List<DebugLog> list=new ArrayList<DebugLog>();
+        list=debugLogMapper.selectList(null);
+        return list;
+    }
 }
 
 

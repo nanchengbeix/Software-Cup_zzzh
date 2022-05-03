@@ -1,4 +1,4 @@
-package generator.domain;
+package com.ycu.zzzh.visual_impairment_3zh.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 
@@ -52,7 +56,7 @@ public class News implements Serializable {
     private Integer creatorId;
 
     /**
-     * 新闻创建时间
+     * 新闻发布时间
      */
     private Date createdTime;
 
@@ -60,6 +64,21 @@ public class News implements Serializable {
      * 预留字段
      */
     private String pre;
+
+    @TableField(exist = false)
+    @Setter
+    @Getter
+    private NewsContent newsContent;
+
+    @TableField(exist = false)
+    @Setter
+    @Getter
+    private  String Author;
+
+    @TableField(exist = false)
+    @Setter
+    @Getter
+    private String tagName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.mapper;
+package com.ycu.zzzh.visual_impairment_3zh.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.DebugLog;

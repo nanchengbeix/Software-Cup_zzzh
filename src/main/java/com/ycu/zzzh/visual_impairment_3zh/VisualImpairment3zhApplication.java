@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VisualImpairment3zhApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(VisualImpairment3zhApplication.class, args);
+            SpringApplication.run(VisualImpairment3zhApplication.class, args);
     }
 
 }

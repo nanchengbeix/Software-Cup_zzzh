@@ -1,9 +1,9 @@
-package com.ycu.zzzh.visual_impairment_3zh.dao.service.impl;
+package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ycu.zzzh.visual_impairment_3zh.dao.mapper.PowerMapper;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.PowerMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.Power;
-import com.ycu.zzzh.visual_impairment_3zh.dao.service.PowerService;
+import com.ycu.zzzh.visual_impairment_3zh.service.PowerService;
 import org.springframework.stereotype.Service;
 
 /**

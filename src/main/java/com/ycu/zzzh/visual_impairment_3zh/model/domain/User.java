@@ -1,4 +1,4 @@
-package generator.domain;
+package com.ycu.zzzh.visual_impairment_3zh.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

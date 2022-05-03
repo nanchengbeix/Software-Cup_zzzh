@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.model.domain;
+package com.ycu.zzzh.visual_impairment_3zh.model.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
