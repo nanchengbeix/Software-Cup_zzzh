@@ -1,7 +1,15 @@
 package com.ycu.zzzh.visual_impairment_3zh.model.result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Msg<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -9,7 +17,8 @@ public class Msg<T> implements Serializable {
     /**
      * 状态码
      */
-    private int errCode;
+    @JsonInclude(value= JsonInclude.Include.NON_NULL)
+    private Integer errCode;
 
     /**
      * 消息内容
@@ -19,41 +28,8 @@ public class Msg<T> implements Serializable {
     /**
      * 返回数据
      */
+    @JsonInclude(value= JsonInclude.Include.NON_NULL)
     private T data;
 
-    public Msg() {
-        super();
-    }
-
-    public Msg(int errCode, String msg, T data) {
-        super();
-        this.errCode = errCode;
-        this.msg = msg;
-        this.data = data;
-    }
-
-    public int getErrCode() {
-        return errCode;
-    }
-
-    public void setErrCode(int errCode) {
-        this.errCode = errCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 
 }

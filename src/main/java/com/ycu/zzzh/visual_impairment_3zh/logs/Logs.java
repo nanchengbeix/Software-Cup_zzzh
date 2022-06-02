@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.model.domain;
+package com.ycu.zzzh.visual_impairment_3zh.logs;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -18,7 +18,7 @@ public class Logs implements Serializable {
     /**
      * 日志表主键
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer lid;
 
     /**

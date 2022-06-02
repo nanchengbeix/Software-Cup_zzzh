@@ -1,13 +1,23 @@
 #配置数据库连接池
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/softwarecup_zzzh?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+#    TODO 数据库地址要改为远程ip
+    url: jdbc:mysql://localhost:3306/softwarecup_zzzh?useSSL=false&useAffectedRows=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  application:
+    name: test
+  rabbitmq:
+    host: 152.136.109.47
+    port: 5672
+    username: Admin
+    password: Admin123123@
+    virtual-host: /
+
 
 ##配置mapper的xml文件的路径
 mybatis-plus:
@@ -34,6 +44,10 @@ pagehelper:
   params: count=countSql
   pageSizeZero: true
 #log4j2配置
+
+DotnetCapConfig:
+  userName: Admin
+
 
 
 

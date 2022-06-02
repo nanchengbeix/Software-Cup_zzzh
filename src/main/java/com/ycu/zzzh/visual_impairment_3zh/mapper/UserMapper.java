@@ -3,6 +3,8 @@ package com.ycu.zzzh.visual_impairment_3zh.mapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.Date;
+
 /**
 * @author 胡富国
 * @description 针对表【user(用户信息)】的数据库操作Mapper
@@ -11,6 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface UserMapper extends BaseMapper<User> {
 
+    Integer updPersonalInfoMapper(String username, String phone, Date birth, String site,
+                                  String modifier,Date lastmodifidTime,String uid);
 }
 
 

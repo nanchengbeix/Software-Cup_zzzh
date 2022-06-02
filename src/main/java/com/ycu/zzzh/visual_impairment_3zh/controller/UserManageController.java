@@ -28,7 +28,7 @@ public class UserManageController {
     public ToResult addUserInfo(User user){
         //处理请求
         int insert=userService.addUserInfoService(user);
-        return new ToResult("1".equals(insert+""),"");
+        return new ToResult("1".equals(insert+""),(insert==1)?"新增成功":"新增失败");
     }
     /**
      * 声明单元方法：根据条件查询用户

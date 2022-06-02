@@ -12,10 +12,15 @@ import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 public interface UserService extends IService<User> {
 
     //添加用户信息
-
     int addUserInfoService(User user);
     //根据条件分页查询数据信息
     PageResult<User> selUserInfoService(Integer page, Integer rows, String uname, String status,String phone);
-
+    //根据用户名查询用户信息
     User findByUserName(String username);
+    //根据token查询用户信息
+    User getUserByToken(String token);
+    //根据用户ID获取用户信息
+    User personalInfoService(String uid);
+    //根据用户ID修改用户信息
+    Boolean personalUpdateService(String uid,User user);
 }

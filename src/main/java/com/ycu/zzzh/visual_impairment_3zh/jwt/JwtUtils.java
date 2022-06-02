@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 import com.auth0.jwt.JWT;
@@ -16,11 +17,16 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public class JwtUtils {
 
-    // 过期时间5分钟
-    private static final long EXPIRE_TIME = 30 * 60 * 1000;
+    // 过期时间24h
+    private static final long EXPIRE_TIME =24 * 60 * 60 * 1000;
 
     // 私钥
     public static final String SECRET = "SECRET_VALUE";
@@ -45,7 +51,7 @@ public class JwtUtils {
     /**
      * 获得token中的自定义信息，无需secret解密也能获得
      */
-    public static String getClaimFiled(String token, String filed) {
+    public static String getUserFiled(String token, String filed) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim(filed).asString();
@@ -57,13 +63,19 @@ public class JwtUtils {
     /**
      * 生成签名
      */
-    public static String sign(String username, String secret) {
+    public static String sign(String username,String uid, String secret) {
         try {
             Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // 附带username，nickname信息
-            return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
+            //TODO 此处JWT的创建可以存入用户id,
+            return JWT.create()
+                    .withClaim("username", username)
+                    .withClaim("uid",uid)
+                    .withExpiresAt(date)//token有效期
+                    .sign(algorithm);
         } catch (JWTCreationException e) {
+
             return null;
         }
     }
@@ -116,4 +128,18 @@ public class JwtUtils {
         String hex = secureRandom.nextBytes(16).toHex();
         return hex;
     }
+
+    /**
+     * 从携带Token的请求中获取用户ID
+     * @return
+     */
+    public static String tokenToId(ServletRequest request){
+        //获取请求头中的token
+        HttpServletRequest req= (HttpServletRequest) request;
+        String token=req.getHeader(AUTH_HEADER);
+        //获取token中的用户id
+        String uid = JwtUtils.getUserFiled(token, "uid");
+        return uid;
+    }
+
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycu.zzzh.visual_impairment_3zh.mapper.UserCollectionsMapper">
+
+    <resultMap id="BaseResultMap" type="com.ycu.zzzh.visual_impairment_3zh.model.domain.UserCollections">
+            <id property="index" column="index" jdbcType="INTEGER"/>
+            <result property="userid" column="userid" jdbcType="BIGINT"/>
+            <result property="newid" column="newid" jdbcType="BIGINT"/>
+            <result property="curtime" column="curtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        index,userid,newid,
+        curtime
+    </sql>
+</mapper>

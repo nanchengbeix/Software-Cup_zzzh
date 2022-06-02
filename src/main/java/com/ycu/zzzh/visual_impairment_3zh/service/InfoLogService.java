@@ -13,4 +13,7 @@ import java.util.List;
 public interface InfoLogService extends IService<InfoLog> {
 
     List<InfoLog> selLogsService();
+
+
+    Void insLogsSercvice(String logLevel, String msg);
 }

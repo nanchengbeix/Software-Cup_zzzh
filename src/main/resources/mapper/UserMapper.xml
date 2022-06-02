@@ -9,7 +9,7 @@
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
-            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="birth" column="birth" jdbcType="DATE"/>
             <result property="site" column="site" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="VARCHAR"/>
             <result property="modifier" column="modifier" jdbcType="VARCHAR"/>
@@ -20,8 +20,14 @@
 
     <sql id="Base_Column_List">
         uid,username,phone,
-        pwd,age,site,
+        pwd,birth,site,
         status,modifier,create_time,
         deleted_time,lastModifid_time
     </sql>
+    <update id="updPersonalInfoMapper">
+        update softwarecup_zzzh.user
+        set username = #{username},phone=#{phone},birth=#{birth},site=#{site}
+            ,modifier =#{modifier},lastModifid_time=#{lastmodifidTime}
+        where uid=#{uid}
+    </update>
 </mapper>

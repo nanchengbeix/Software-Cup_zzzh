@@ -1,12 +1,16 @@
 package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsContentMapper;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsSortMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.News;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsCondition;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsContent;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsSort;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.NewsService;
@@ -14,7 +18,9 @@ import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author 胡富国
@@ -28,6 +34,10 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     private NewsMapper newsMapper;
     @Autowired
     private NewsContentMapper newsContentMapper;
+    @Autowired
+    private NewsSortMapper newsSortMapper;
+    @Autowired
+    private  LogServer logServer;
     @Override
     //根据id删除新闻
     public Boolean newsRemoveService(String nids) {
@@ -58,6 +68,12 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     public PageResult<NewsResult> newsInfoService(Integer page, Integer rows, NewsCondition newsCondition) {
         //1.创建分页对象存储分页信息
         Page<Object> page1 = PageHelper.startPage(page, rows,false);
+        if (newsCondition.getTag()!=""&&newsCondition.getTag()!= null){
+            QueryWrapper<NewsSort> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("tag_name",newsCondition.getTag());
+            NewsSort sort = newsSortMapper.selectOne(queryWrapper);
+            newsCondition.setTag(String.valueOf(sort.getId()));
+        }
         //2.调用mapper层完成查询
         System.out.println("NewsServiceImpl.newsInfoService");
        List<NewsResult> newsResults=newsMapper.selNewsInfoMapper(newsCondition);
@@ -79,6 +95,27 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         int insert1 = newsContentMapper.insert(newsContent);
         int insert2 = newsMapper.insert(news);
         return true;
+    }
+    //新闻内容查询
+    @Override
+    public Map<String, Object> newsContentInfoService(String id) {
+        Map<String,Object> map= new HashMap<>();
+        //根据id获取新闻数据
+        News news = newsMapper.selectById(id);
+        //根据新闻数据中的contentId获取新闻内容
+        NewsContent newsContent = newsContentMapper.selectById(news.getContentId());
+        news.setViewsNum(news.getViewsNum()+1);
+        newsMapper.updateById(news);
+        //TODO 判断是否有新闻内容与新闻对应，如没有计入日志
+        if (newsContent.getContent()==null||newsContent.getContent().equals("")){
+            logServer.logError("%s的新闻内容不存在",news.getId());
+            return null;
+        }
+        map.put("msg","success");
+        map.put("createdTime",news.getCreatedTime() );
+        map.put("newsContent",newsContent);
+
+        return map;
     }
 }
 

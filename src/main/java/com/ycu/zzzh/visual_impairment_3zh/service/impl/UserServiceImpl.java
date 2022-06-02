@@ -4,14 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.UserMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
+import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +30,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     //声明mapper层属性
     @Autowired
     private UserMapper userMapper;
+    private final LogServer logServer;
+
+    public UserServiceImpl(LogServer logServer){
+        this.logServer=logServer;
+    }
 
     //根据条件分页查询用户信息
     @Override
@@ -61,6 +70,46 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             queryWrapper.eq("username",username);
             return userMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public User getUserByToken(String token) {
+
+        return null;
+    }
+
+    //客户端：id获取用户信息
+    @Override
+    public User personalInfoService(String uid) {
+        QueryWrapper<User> wrapper=new QueryWrapper<>();
+        wrapper.select("username","phone","birth","site").eq("uid",uid);
+        User user = userMapper.selectOne(wrapper);
+//        Date date = DateUtil.dateLongToDateShort(user.getBirth());
+//        try {
+//            Date nowDateShort = DateUtil.getNowDateShort();
+//        } catch (ParseException e) {
+//            logServer.logError("%s获取短时间格式出现错误：%s",personalInfoService(null).getClass().getSimpleName(),e);
+//        }
+//        user.setBirth(date);
+        return user;
+
+
+
+    }
+
+    //客户端：根据id修改用户信息
+    @Override
+    public Boolean personalUpdateService(String uid,User user) {
+        user.setModifier("self");
+        user.setLastmodifidTime(DateUtil.getNowDate());
+        Integer i = userMapper.updPersonalInfoMapper(user.getUsername(), user.getPhone(), user.getBirth(), user.getSite()
+                                                    ,user.getModifier(),user.getLastmodifidTime(),uid);
+        if (i!= 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     //增加用户信息
     @Override
     public int addUserInfoService(User user) {

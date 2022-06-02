@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/http")
 public class HttpController {
-    static final String pyUrl="http://localhost:8088/userLogin";
+    static final String URL="http://localhost:8088/userLogin";
 
     /**
      * 声明单元方法：接收前端请求返回推荐新闻
@@ -30,10 +30,10 @@ public class HttpController {
         paramMap.put("username","admin");
         paramMap.put("pwd","123456");
         //将map结构参数，转换为json数据格式发送Http请求
-        JSONObject jsonObject = HttpClientUtil.doPostJson(pyUrl, new JSONObject(paramMap));
+        JSONObject jsonObject = HttpClientUtil.doPostJson(URL, new JSONObject(paramMap));
         Object data = "data";
         String o = (String) jsonObject.get(data);
-        System.out.println(jsonObject.toString());
+        System.out.println(jsonObject);
         return o;
     }
 }

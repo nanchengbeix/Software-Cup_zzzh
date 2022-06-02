@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,19 @@ public class InfoLogServiceImpl extends ServiceImpl<InfoLogMapper, InfoLog>
         list=infoLogMapper.selectList(null);
         return list;
     }
+
+
+
+    @Override
+    public Void insLogsSercvice(String logLevel, String msg) {
+        InfoLog infoLog=new InfoLog();
+        infoLog.setCreateTime(new Date());
+        infoLog.setLogLevel(logLevel);
+        infoLog.setLogMessage(msg);
+        infoLogMapper.insert(infoLog);
+        return null;
+    }
+
 }
 
 

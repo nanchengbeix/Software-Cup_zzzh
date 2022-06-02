@@ -12,9 +12,10 @@ public class JwtToken implements AuthenticationToken {
 
     private String userName;
 
+
     public JwtToken(String token) {
         this.token = token;
-        this.userName = JwtUtils.getClaimFiled(token, "username");
+        this.userName = JwtUtils.getUserFiled(token, "username");
     }
 
     @Override
@@ -26,4 +27,5 @@ public class JwtToken implements AuthenticationToken {
     public Object getCredentials() {
         return token;
     }
+
 }

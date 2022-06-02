@@ -39,14 +39,14 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         return super.preHandle(request, response);
     }
 
-    /**
-     * 后置处理
-     */
-    @Override
-    protected void postHandle(ServletRequest request, ServletResponse response) {
-        // 添加跨域支持
-        this.fillCorsHeader(WebUtils.toHttp(request), WebUtils.toHttp(response));
-    }
+//    /**
+//     * 后置处理
+//     */
+//    @Override
+//    protected void postHandle(ServletRequest request, ServletResponse response) {
+//        // 添加跨域支持
+//        this.fillCorsHeader(WebUtils.toHttp(request), WebUtils.toHttp(response));
+//    }
 
     /**
      * 过滤器拦截请求的入口方法
@@ -123,7 +123,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         //没有权限返回数据
         writer.write("{\"errCode\": 401, \"msg\": \"未授权\"}");
 //        writer.write("{\"errCode\": 401, \"msg\": \"UNAUTHORIZED\"}");
-        fillCorsHeader(WebUtils.toHttp(servletRequest), httpResponse);
+//        fillCorsHeader(WebUtils.toHttp(servletRequest), httpResponse);
         return false;
     }
 
@@ -154,13 +154,15 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         return false;
     }
 
-    /**
-     * 添加跨域支持
-     */
-    protected void fillCorsHeader(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
-        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,HEAD");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers",
-                httpServletRequest.getHeader("Access-Control-Request-Headers"));
-    }
+//    /**
+//     * 添加跨域支持
+//     */
+//    protected void fillCorsHeader(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+//        httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+//        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,HEAD");
+//        httpServletResponse.setHeader("Access-Control-Allow-Headers",
+//                httpServletRequest.getHeader("Access-Control-Request-Headers"));
+//    }
+
+
 }

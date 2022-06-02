@@ -73,7 +73,7 @@ public class News implements Serializable {
     @TableField(exist = false)
     @Setter
     @Getter
-    private  String Author;
+    private  String author;
 
     @TableField(exist = false)
     @Setter

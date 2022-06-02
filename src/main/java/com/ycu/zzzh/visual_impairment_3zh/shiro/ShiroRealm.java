@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -32,6 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
+    @Autowired
+    private LogServer logServer;
 
     //加密密码 String password = new SimpleHash( "SHA-1", user.getPassword(), user.getName(), 16).toString();
 
@@ -59,7 +63,6 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user == null||"2".equals(user.getStatus())) {
             throw new UnknownAccountException("用户不存在！");
         }
-
         // 用户被封号
         if ("1".equals(user.getStatus())) {
             throw new LockedAccountException("该用户被封号,暂时无法登录！");
@@ -76,6 +79,7 @@ public class ShiroRealm extends AuthorizingRealm {
          */
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPwd(), credentialsSalt,
                 getName());
+        logServer.logUserBehavior(LogsString.UserLogin,user.getUid());
         return info;
     }
 

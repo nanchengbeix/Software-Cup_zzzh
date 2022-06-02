@@ -3,6 +3,8 @@ package com.ycu.zzzh.visual_impairment_3zh.shiro;
 import java.util.Set;
 
 import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtToken;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -26,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class JwtRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
+    @Autowired
+    private LogServer logServer;
 
     /**
      * 限定这个 Realm 只处理我们自定义的 JwtToken

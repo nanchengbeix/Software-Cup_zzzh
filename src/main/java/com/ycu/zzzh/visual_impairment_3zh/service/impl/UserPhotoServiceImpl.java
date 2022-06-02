@@ -1,9 +1,9 @@
-package generator.service.impl;
+package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.UserPhoto;
-import generator.service.UserPhotoService;
-import generator.mapper.UserPhotoMapper;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserPhoto;
+import com.ycu.zzzh.visual_impairment_3zh.service.UserPhotoService;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.UserPhotoMapper;
 import org.springframework.stereotype.Service;
 
 /**

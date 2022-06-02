@@ -7,9 +7,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class ImageBase64Util {
-
+//测试
 public static void main(String[] args) {
-        String imageFile= "D:\\desktop\\2d174d82ac56bee21121d9c55f14ddd.png";// 待处理的图片
+        String imageFile= "D:\\desktop\\2713c54c19713c1bb738b153086ca2b.jpeg";// 待处理的图片
 System.out.println(getImageString(imageFile));
     }
 
@@ -22,17 +22,16 @@ byte[] data = null;
             is.read(data);
 return new String(Base64.encodeBase64(data));
         } catch (Exception e) {
-            e.printStackTrace();
+    return "";
         } finally {
 if (null != is) {
 try {
                     is.close();
                     is = null;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    return "";
                 }
             }
         }
-return "";
     }
 }

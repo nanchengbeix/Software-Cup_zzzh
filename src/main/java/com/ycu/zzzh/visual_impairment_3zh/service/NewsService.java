@@ -6,6 +6,8 @@ import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsCondition;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 
+import java.util.Map;
+
 /**
 * @author 胡富国
 * @description 针对表【news】的数据库操作Service
@@ -20,4 +22,6 @@ public interface NewsService extends IService<News> {
     PageResult<NewsResult> newsInfoService(Integer currentPage, Integer pageSize, NewsCondition newsCondition);
     //新闻新增（单项）
     boolean newsAddService(News news);
+    //新闻内容查询
+    Map<String, Object> newsContentInfoService(String id);
 }

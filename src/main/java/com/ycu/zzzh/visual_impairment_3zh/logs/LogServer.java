@@ -1,8 +1,8 @@
-package com.ycu.zzzh.visual_impairment_3zh.utils;
+package com.ycu.zzzh.visual_impairment_3zh.logs;
 
 import com.ycu.zzzh.visual_impairment_3zh.mapper.LogsMapper;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.Logs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -12,40 +12,39 @@ import java.util.Date;
  * @Date 2022/5/10 21:26
  * @Version 1.0
  **/
+@Component
 public class LogServer {
     @Autowired
     private LogsMapper logsMapper;
 
-    private void Log(LogLevel level, String message, Object... params){
+    private  void log(LogLevel level, String message, Object... params){
         //message与params拼接
         String msg=String.format(message,params);
         Logs logs=new Logs();
         logs.setLevel(String.valueOf(level));
         logs.setCreateTime(new Date());
+        logs.setMessage(msg);
         logsMapper.insert(logs);
         return;
     }
 
-    private void LogInfo(){
-        Log(LogLevel.Info,);
+    public  void logInfo(String message, Object... params){
+        log(LogLevel.Info, message, params);
     }
-    private void LogError(){
+    public  void logError(String message, Object... params){
 
-    }
-
-    private void LogUserBehavior(){
-
+        log(LogLevel.Error, message, params);
     }
 
-    private void LogTrack(){
-        logTemplate().
+    public  void logUserBehavior(String message, Object... params){
+        log(LogLevel.Userbehavior, message, params);
     }
 
+    public  void logTrack(String message, Object... params){
 
-
-     static void logTemplate(){
-        static String UserViewNews="%s访问了%s新闻";
+        log(LogLevel.Track, message, params);
     }
+
 
 
     enum LogLevel{
