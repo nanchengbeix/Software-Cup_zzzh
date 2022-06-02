@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.model.domain;
+package generator.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -39,7 +39,7 @@ public class User implements Serializable {
     /**
      * 用户年龄
      */
-    private Integer age;
+    private Date birth;
 
     /**
      * 登录地址

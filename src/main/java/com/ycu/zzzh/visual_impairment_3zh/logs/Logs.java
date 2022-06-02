@@ -1,29 +1,40 @@
 package com.ycu.zzzh.visual_impairment_3zh.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * 角色权限关系表
- * @TableName admin_role
+ * 
+ * @TableName logs
  */
-@TableName(value ="admin_role")
+@TableName(value ="logs")
 @Data
-public class AdminRole implements Serializable {
+public class Logs implements Serializable {
     /**
-     * 角色ID
+     * 日志表主键
      */
     @TableId
-    private Integer rid;
+    private Integer lid;
 
     /**
-     * 权限ID
+     * 日志级别
      */
-    @TableId
-    private Integer pid;
+    private String level;
+
+    /**
+     * 日志内容
+     */
+    private String message;
+
+    /**
+     * 日志时间戳
+     */
+    private Date createTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
