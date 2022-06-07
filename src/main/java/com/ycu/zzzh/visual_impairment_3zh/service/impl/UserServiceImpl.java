@@ -73,7 +73,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User getUserByToken(String token) {
-
         return null;
     }
 
@@ -109,6 +108,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return false;
         }
     }
+
+//    @Override
+//    public Msg userLogoutService(HttpServletRequest request) {
+//        Msg msg=new Msg();
+//        //移除token
+//
+//        return msg;
+//    }
 
     //增加用户信息
     @Override

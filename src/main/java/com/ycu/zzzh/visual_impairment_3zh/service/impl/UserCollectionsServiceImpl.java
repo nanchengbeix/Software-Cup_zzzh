@@ -2,8 +2,12 @@ package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserCollections;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserCollectionsService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.UserCollectionsMapper;
 import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
@@ -11,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author 胡富国
@@ -51,6 +56,20 @@ public class UserCollectionsServiceImpl extends ServiceImpl<UserCollectionsMappe
         userCollectionsMapper.delete(queryWrapper);
         msg.setMsg("取消收藏成功");
         return msg;
+    }
+
+    @Override
+    public PageResult<NewsResult> CollectionInfoService(Integer page, Integer rows,String uid) {
+        //1.创建分页对象存储分页信息
+        Page<Object> page1 = PageHelper.startPage(page, rows,false);
+        //2.调用mapper层完成查询
+        List<NewsResult> newsResults=userCollectionsMapper.selColNewsInfoMapper(uid);
+        PageResult<NewsResult> pageResult=new PageResult<>();
+        pageResult.setMsg("success");
+        pageResult.setCurrentPage(page1.getPageNum());
+        pageResult.setPageSize((long) newsResults.size());
+        pageResult.setData(newsResults);
+        return pageResult;
     }
 }
 

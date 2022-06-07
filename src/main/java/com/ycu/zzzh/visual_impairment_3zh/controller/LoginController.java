@@ -85,16 +85,16 @@ public class LoginController {
 
     }
 
-    /**
-     * 用户退出登录
-     * @return
-     */
-    @GetMapping("/logout")
-    public Object logout() {
-        Msg<Object> ret = new Msg<Object>();
-        ret.setMsg("退出登录");
-        return ret;
-    }
+//    /**
+//     * 用户退出登录
+//     * @return
+//     */
+//    @GetMapping("/logout")
+//    public Msg userLogout(HttpServletRequest request) {
+//        Msg ret = new Msg<Object>();
+//        ret=userService.userLogoutService(request);
+//        return ret;
+//    }
 
     /**
      * 用户注册
@@ -102,11 +102,11 @@ public class LoginController {
      * @return
      */
     @PostMapping("/registered")
-    public Object registered(@RequestBody User user){
-        Msg<Object> ret = new Msg<Object>();
+    public Msg registered(@RequestBody User user){
+        Msg ret = new Msg();
             int i = userService.addUserInfoService(user);
             ret.setMsg("注册成功");
-        return ret;
+            return ret;
 
     }
 }

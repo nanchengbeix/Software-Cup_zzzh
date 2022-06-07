@@ -1,8 +1,11 @@
 package com.ycu.zzzh.visual_impairment_3zh.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
 * @author 胡富国
@@ -23,4 +26,6 @@ public interface UserService extends IService<User> {
     User personalInfoService(String uid);
     //根据用户ID修改用户信息
     Boolean personalUpdateService(String uid,User user);
+
+//    Msg userLogoutService(HttpServletRequest request);
 }

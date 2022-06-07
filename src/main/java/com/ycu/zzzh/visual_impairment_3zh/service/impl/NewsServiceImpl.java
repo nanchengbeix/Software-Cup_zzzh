@@ -75,7 +75,6 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
             newsCondition.setTag(String.valueOf(sort.getId()));
         }
         //2.调用mapper层完成查询
-        System.out.println("NewsServiceImpl.newsInfoService");
        List<NewsResult> newsResults=newsMapper.selNewsInfoMapper(newsCondition);
        //3.将结果封装成PageResult
         PageResult<NewsResult> pageResult=new PageResult<>();

@@ -2,6 +2,9 @@ package com.ycu.zzzh.visual_impairment_3zh.mapper;
 
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserCollections;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
+
+import java.util.List;
 
 /**
 * @author 胡富国
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface UserCollectionsMapper extends BaseMapper<UserCollections> {
 
+    List<NewsResult> selColNewsInfoMapper(String uid);
 }
 
 
