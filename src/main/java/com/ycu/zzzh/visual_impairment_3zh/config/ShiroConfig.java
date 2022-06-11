@@ -99,7 +99,6 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/news/newsContentInfo", "anon"); // 可匿名访问
         filterChainDefinitionMap.put("/news/newsInfo", "anon"); // 可匿名访问
         filterChainDefinitionMap.put("/registered","anon");//注册页面
-        filterChainDefinitionMap.put("/logout", "logout"); // 退出登录
         filterChainDefinitionMap.put("/api/**","anon");//对api接口放行
         filterChainDefinitionMap.put("/**", "jwtFilter,authc"); // 需登录才能访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

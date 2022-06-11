@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -48,10 +50,10 @@ public class VoiceController {
         sessionParam.put("sid", sid);
         sessionParam.put("aue", "raw");
         sessionParam.put("rate", "16000");
-        sessionParam.put("rst", "json");
+        sessionParam.put("rst", "plain");
         sessionParam.put("rse", "utf8");
-        sessionParam.put("bos", "2000");
-        sessionParam.put("eos", "2000");
+        sessionParam.put("bos", "20000");
+        sessionParam.put("eos", "20000");
         sessionParam.put("dwa", "wpgs");
 //        sessionParam.put("language", "ch");
 //        sessionParam.put("hotword", "住手");
@@ -61,13 +63,12 @@ public class VoiceController {
 //        String file = AudioUtils.convertMP32Pcm(wavFile,);
 //        String file="D:\\desktop\\我的文件夹\\软件杯\\移动云\\语音听写demo\\demo2\\tts.raw";
 //        AudioUtils.audioPcmToWave(file,"D:\\Common software\\PotPlayer\\Capture\\1.wav");
-        String msg = null;
+        URI fileURI = null;
         try {
-            msg = VoiceUtils.sendFile(voiceFile, sessionParam, 40960,iatHttpUrl,sid);
+            fileURI = VoiceUtils.sendFile(voiceFile, sessionParam, 40960,iatHttpUrl,sid);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(msg);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -75,14 +76,24 @@ public class VoiceController {
         }
 
         try {
-            map= VoiceUtils.getResult(msg,iatHttpUrl,sid);
+            map= VoiceUtils.getResult(iatHttpUrl,sid);
+
             return map;
         } catch (Exception e) {
             e.printStackTrace();
             map.put("msg","404");
             return map;
+        }finally {
+            File del = new File(fileURI);
+            //删除临时文件
+             boolean result = false;
+            int tryCount = 0;
+            while(!result && tryCount++ <10)
+            {
+                System.gc();
+                result = del.delete();
+            }
         }
-
     }
 
 }

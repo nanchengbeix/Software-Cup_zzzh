@@ -9,4 +9,5 @@ package com.ycu.zzzh.visual_impairment_3zh.logs;
 public class LogsString {
     public static String UserViewNews="%s访问了%s新闻";
     public static String UserLogin="%s成功登录";
+    public static String UserOut="%s发出指令：%s";
 }

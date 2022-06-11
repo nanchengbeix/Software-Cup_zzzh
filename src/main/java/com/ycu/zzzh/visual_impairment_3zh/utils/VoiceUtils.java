@@ -3,26 +3,24 @@ package com.ycu.zzzh.visual_impairment_3zh.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ycu.zzzh.visual_impairment_3zh.config.VoiceConfig;
-import com.ycu.zzzh.visual_impairment_3zh.controller.api.VoiceController;
-import org.apache.http.HttpHost;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Base64;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,11 +36,14 @@ public class VoiceUtils {
     private static String url =  "/api/lingxiyun/cloud/iat/send_request/v1";
     private static String url2 = "/api/lingxiyun/cloud/iat/query_result/v1";
     private static String gatewayAddress = "https://api-wuxi-1.cmecloud.cn:8443";
-    public static String sendFile(MultipartFile multipartFile, Map<String, String> sessionParam, int sliceSize, String iatHttpUrl, String sid) throws Exception {
+    @Autowired
+    private LogService logService;
+    public static URI sendFile(MultipartFile multipartFile, Map<String, String> sessionParam, int sliceSize, String iatHttpUrl, String sid) throws Exception {
         File file=null;
         file=FileUtil.multipartFileToFile(multipartFile);
         if (!file.exists()) {
-            return "文件不存在:" + file.getAbsolutePath();
+            file.delete();
+            return null;
         }
 
         int sliceNum = (int) Math.ceil((double) file.length() / sliceSize);
@@ -57,8 +58,7 @@ public class VoiceUtils {
 
             send(String.valueOf(i+1), sessionParam, data, i == sliceNum - 1 ? 1 : 0,iatHttpUrl,sid);
         }
-        FileUtil.deleteTempFile(file );
-        return "分片发送完成，等待接收转写结果";
+        return file.toURI();
     }
 
     public static void send(String number, Map<String, String> sessionParam, byte[] audioBytes, int endFlag,String iatHttpUrl, String sid) throws Exception {
@@ -88,9 +88,11 @@ public class VoiceUtils {
         if(jsonObject != null) {
             if (jsonObject.get("body") == null
                     || jsonObject.getJSONArray("body").size() > 0) {
+                //TODO 写为日志录入
                 System.out.println(response);
             }
         } else {
+            //TODO 写为日志录入
             System.out.println("语音听写分片发送无响应");
         }
     }
@@ -99,7 +101,7 @@ public class VoiceUtils {
         try {
             in = new FileInputStream(file);
             byte[] tempbytes = new byte[Math.min(in.available(), size)];
-            in = new FileInputStream(file);
+//            in = new FileInputStream(file);
             in.skip(from);
             in.read(tempbytes);
             return tempbytes;
@@ -113,7 +115,8 @@ public class VoiceUtils {
             }
         }
     }
-    public static Map<String, Object> getResult(String msg,String iatHttpUrl,String sid) throws Exception {
+    public static Map<String, Object> getResult(String iatHttpUrl,String sid) throws Exception {
+        String msg="分片发送完成";
         ApiUrlTest urlTest = new ApiUrlTest();
         String urlpath = urlTest.doSignature(url2, "GET", accessKey, secret);
         iatHttpUrl = gatewayAddress + urlpath;
@@ -126,8 +129,10 @@ public class VoiceUtils {
         String response = EntityUtils.toString(httpResponse.getEntity());
         JSONObject jsonObject = JSONObject.parseObject(response);
         if(jsonObject != null) {
+            //TODO 写为日志录入
             System.out.println("转写结果：" + jsonObject);
         } else {
+            //TODO 写为日志录入
             System.out.println("语音听写无转写结果");
             msg="error";
         }

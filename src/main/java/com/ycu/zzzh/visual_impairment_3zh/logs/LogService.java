@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @ClassName LogServer
+ * @ClassName LogService
  * @description: TODO
  * @Date 2022/5/10 21:26
  * @Version 1.0
  **/
 @Component
-public class LogServer {
+public class LogService {
     @Autowired
     private LogsMapper logsMapper;
 

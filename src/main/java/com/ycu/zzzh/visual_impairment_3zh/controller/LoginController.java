@@ -4,8 +4,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
@@ -16,21 +15,18 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 
 @RestController
 public class LoginController {
 
     private final UserService userService;
-    private final LogServer logServer;
+    private final LogService logService;
 
-    public LoginController(UserService userService,LogServer logServer) {
+    public LoginController(UserService userService, LogService logService) {
         this.userService = userService;
-        this.logServer = logServer;
+        this.logService = logService;
     }
 
     /**
@@ -79,7 +75,7 @@ public class LoginController {
             ret.setErrCode(401);
             ret.setMsg(msg);
             String message="%s"+msg;
-            logServer.logError(message,userName);
+            logService.logError(message,userName);
             return ret;
         }
 

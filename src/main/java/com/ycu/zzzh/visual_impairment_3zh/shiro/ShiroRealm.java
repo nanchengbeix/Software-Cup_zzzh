@@ -1,15 +1,9 @@
 package com.ycu.zzzh.visual_impairment_3zh.shiro;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -18,8 +12,6 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -35,7 +27,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
     @Autowired
-    private LogServer logServer;
+    private LogService logService;
 
     //加密密码 String password = new SimpleHash( "SHA-1", user.getPassword(), user.getName(), 16).toString();
 
@@ -79,7 +71,7 @@ public class ShiroRealm extends AuthorizingRealm {
          */
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPwd(), credentialsSalt,
                 getName());
-        logServer.logUserBehavior(LogsString.UserLogin,user.getUid());
+        logService.logUserBehavior(LogsString.UserLogin,user.getUid());
         return info;
     }
 

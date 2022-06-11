@@ -1,13 +1,9 @@
 package com.ycu.zzzh.visual_impairment_3zh.shiro;
 
-import java.util.Set;
-
 import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtToken;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -16,7 +12,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +24,7 @@ public class JwtRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
     @Autowired
-    private LogServer logServer;
+    private LogService logService;
 
     /**
      * 限定这个 Realm 只处理我们自定义的 JwtToken

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
 import com.auth0.jwt.JWT;
@@ -17,8 +16,6 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
