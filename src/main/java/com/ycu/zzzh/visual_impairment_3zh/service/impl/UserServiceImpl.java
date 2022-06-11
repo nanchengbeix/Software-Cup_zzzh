@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.UserMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
@@ -14,8 +14,6 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +28,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     //声明mapper层属性
     @Autowired
     private UserMapper userMapper;
-    private final LogServer logServer;
+    private final LogService logService;
 
-    public UserServiceImpl(LogServer logServer){
-        this.logServer=logServer;
+    public UserServiceImpl(LogService logService){
+        this.logService = logService;
     }
 
     //根据条件分页查询用户信息

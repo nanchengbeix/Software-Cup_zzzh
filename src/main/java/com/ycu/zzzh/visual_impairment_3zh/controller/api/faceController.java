@@ -1,18 +1,25 @@
 package com.ycu.zzzh.visual_impairment_3zh.controller.api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinamobile.cmss.sdk.face.ECloudDefaultClient;
 import com.chinamobile.cmss.sdk.face.http.constant.Region;
 import com.chinamobile.cmss.sdk.face.http.signature.Credential;
 import com.chinamobile.cmss.sdk.face.request.IECloudRequest;
 import com.chinamobile.cmss.sdk.face.request.face.FaceRequestFactory;
+import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserFace;
 import com.ycu.zzzh.visual_impairment_3zh.model.request.createFaceRequest;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
+import com.ycu.zzzh.visual_impairment_3zh.service.UserFaceService;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletRequest;
 import java.util.*;
 
 /**
@@ -28,6 +35,9 @@ public class faceController {
     private static String user_sk;
     private static ECloudDefaultClient client;
 
+    private final UserFaceService userFaceService;
+    private final LogService logService;
+
     static {
 
         user_ak = "3e94606c57e94776a6733ef43700bb91";
@@ -37,20 +47,27 @@ public class faceController {
         client = new ECloudDefaultClient(credential, Region.POOL_SZ);
     }
 
+    public faceController(UserFaceService userFaceService,LogService logService) {
+        this.userFaceService = userFaceService;
+        this.logService = logService;
+    }
+
     /**
      * 将用户人脸录入人脸库
      * @param createfaceRequest 图片Base64 用户id
      * @return
      */
     @PostMapping("createFace")
-    public JSONObject createFace(@RequestBody createFaceRequest createfaceRequest) {
+    public Msg createFace(@RequestBody createFaceRequest createfaceRequest,ServletRequest req) {
+        //TODO 需要判断人脸是否已经存在，是：删除人脸库中的数据，否：直接添加即可
+        Msg msg=new Msg();
+        //获取请求头中的token中的uid
+        String uid = JwtUtils.tokenToId(req);
         JSONObject params = new JSONObject();
-
-        Msg msg = new Msg();
         //TODO 人脸库id写死
         params.put("faceStoreId", "6273cc5cfd04d200010064bb");
         params.put("imageType", "BASE64");
-        params.put("name",createfaceRequest.getUid());
+        params.put("name",uid);
         params.put("image", createfaceRequest.getImage());
         IECloudRequest request = FaceRequestFactory.getFaceRequest("/api/human/face/v1/store/member/create", params);
         JSONObject response = null;
@@ -59,31 +76,59 @@ public class faceController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //TODO 需要取出人脸库人员ID与数据库结合
-        return response;
+        //将人脸库返回数据存储到数据库中
+        Msg result = userFaceService.addUserFaceService(response);
+        return result;
     }
 
     /**
      * 删除用户人脸库信息
-     * @param memberId
+     * @param req
      * @return
      */
     @PostMapping("deleteFace")
-    public  JSONObject deleteFace(String memberId){
-        JSONObject params = new JSONObject();
-        params.put("memberId",memberId);
-        IECloudRequest request = FaceRequestFactory.getFaceRequest("/api/human/face/v1/store/member/delete", params);
-        JSONObject response = null;
-        try{
-            response =(JSONObject)client.call(request);
+    public  Msg deleteFace(ServletRequest req){
+        Msg msg=new Msg();
+        //获取请求头中的token中的uid
+        String uid = JwtUtils.tokenToId(req);
+        if (StringUtils.hasText(uid)){
+            QueryWrapper<UserFace> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("uid",uid);
+            UserFace one = userFaceService.getOne(queryWrapper);
+            if (one != null){
+                String memberId = one.getId();
+                JSONObject params = new JSONObject();
+                params.put("memberId",memberId);
+                IECloudRequest request = FaceRequestFactory.getFaceRequest("/api/human/face/v1/store/member/delete", params);
+                JSONObject response = null;
+                try{
+                    response =(JSONObject)client.call(request);
 
-        }catch (Exception e){
-            e.printStackTrace();
+                }catch (Exception e){
+                    logService.logError(e.getMessage());
+                }
+                userFaceService.removeById(memberId);
+                msg.setMsg(response.getString("state"));
+                return msg;
+            }else {
+                msg.setMsg("用户无人脸信息");
+                return msg;
+            }
+
+        }else {
+            msg.setErrCode(403);
+            msg.setMsg("禁止访问");
+            return msg;
         }
-        return response;
+
     }
 
-    @PostMapping("getFace")
+    /**
+     * 查询人脸信息
+     * @param memberId
+     * @return
+     */
+    @RequestMapping("getFace")
     public JSONObject getFace(String memberId){
         JSONObject params = new JSONObject();
         params.put("memberId",memberId);
@@ -93,10 +138,31 @@ public class faceController {
             response =(JSONObject)client.call(request);
 
         }catch (Exception e){
-            e.printStackTrace();
+            logService.logError(e.getMessage());
         }
         return response;
     }
+
+    /**
+     * 查询人脸库人员列表
+     * @param faceStoreId
+     * @return
+     */
+    @RequestMapping("getFaceList")
+    public JSONObject getFaceList(String faceStoreId){
+        JSONObject params = new JSONObject();
+        params.put("faceStoreId",faceStoreId);
+        IECloudRequest request = FaceRequestFactory.getFaceRequest("/api/human/face/v1/store/member/list", params);
+        JSONObject response = null;
+        try{
+            response =(JSONObject)client.call(request);
+        }catch (Exception e){
+            logService.logError(e.getMessage());
+        }
+        return response;
+    }
+
+
 
     /**
      * 人脸搜索

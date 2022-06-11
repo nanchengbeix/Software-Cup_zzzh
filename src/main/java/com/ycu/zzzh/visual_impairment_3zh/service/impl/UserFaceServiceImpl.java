@@ -1,10 +1,16 @@
-package generator.service.impl;
+package com.ycu.zzzh.visual_impairment_3zh.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.UserFace;
-import generator.service.UserFaceService;
-import generator.mapper.UserFaceMapper;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserFace;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
+import com.ycu.zzzh.visual_impairment_3zh.service.UserFaceService;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.UserFaceMapper;
+import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
 * @author 胡富国
@@ -15,6 +21,21 @@ import org.springframework.stereotype.Service;
 public class UserFaceServiceImpl extends ServiceImpl<UserFaceMapper, UserFace>
     implements UserFaceService{
 
+    @Autowired
+    private UserFaceMapper userFaceMapper;
+    @Override
+    public Msg addUserFaceService(JSONObject response) {
+        JSONObject body=response.getJSONObject("body");
+        UserFace userFace=new UserFace();
+        userFace.setId(body.getString("id"));
+        userFace.setUid(body.getInteger("name"));
+        userFace.setImageIds(String.valueOf(body.getJSONArray("imageIds")));
+        userFace.setCreateTime(DateUtil.nowDateTime());
+        userFaceMapper.insert(userFace);
+        Msg msg=new Msg();
+        msg.setMsg("录入成功");
+        return msg;
+    }
 }
 
 

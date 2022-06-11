@@ -1,7 +1,9 @@
-package generator.service;
+package com.ycu.zzzh.visual_impairment_3zh.service;
 
-import generator.domain.UserFace;
+import com.alibaba.fastjson.JSONObject;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserFace;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 
 /**
 * @author 胡富国
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserFaceService extends IService<UserFace> {
 
+    Msg addUserFaceService(JSONObject response);
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogServer;
+import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsContentMapper;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsSortMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.News;
@@ -37,7 +37,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     @Autowired
     private NewsSortMapper newsSortMapper;
     @Autowired
-    private  LogServer logServer;
+    private LogService logService;
     @Override
     //根据id删除新闻
     public Boolean newsRemoveService(String nids) {
@@ -107,7 +107,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         newsMapper.updateById(news);
         //TODO 判断是否有新闻内容与新闻对应，如没有计入日志
         if (newsContent.getContent()==null||newsContent.getContent().equals("")){
-            logServer.logError("%s的新闻内容不存在",news.getId());
+            logService.logError("%s的新闻内容不存在",news.getId());
             return null;
         }
         map.put("msg","success");
