@@ -1,6 +1,6 @@
 # 基于人工智能的视障人士友好的资讯辅助软件
 
-[version: 1.0 (shields.io)](https://img.shields.io/badge/version-1.0-brightgreen)
+![version: 1.0 (shields.io)](https://img.shields.io/badge/version-1.0-brightgreen)
 
 ## 目录
 
