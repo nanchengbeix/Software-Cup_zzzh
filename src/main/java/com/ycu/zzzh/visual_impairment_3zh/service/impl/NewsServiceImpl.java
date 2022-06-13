@@ -66,14 +66,15 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
      */
     @Override
     public PageResult<NewsResult> newsInfoService(Integer page, Integer rows, NewsCondition newsCondition) {
-        //1.创建分页对象存储分页信息
-        Page<Object> page1 = PageHelper.startPage(page, rows,false);
+        //判断是否是分类查询
         if (newsCondition.getTag()!=""&&newsCondition.getTag()!= null){
             QueryWrapper<NewsSort> queryWrapper=new QueryWrapper<>();
             queryWrapper.eq("tag_name",newsCondition.getTag());
             NewsSort sort = newsSortMapper.selectOne(queryWrapper);
             newsCondition.setTag(String.valueOf(sort.getId()));
         }
+        //1.创建分页对象存储分页信息
+        Page<Object> page1 = PageHelper.startPage(page, rows,false);
         //2.调用mapper层完成查询
        List<NewsResult> newsResults=newsMapper.selNewsInfoMapper(newsCondition);
        //3.将结果封装成PageResult

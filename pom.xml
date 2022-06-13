@@ -223,12 +223,22 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/ecloud-sdk-ocr-1.5.3-jar-with-dependencies.jar</systemPath>
         </dependency>
+        <!--图片识别-->
+        <dependency>
+            <groupId>com.chinamobile.ecloud</groupId>
+            <artifactId>eloud-engine-sdk</artifactId>
+            <version>1.1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/ecloud-engine-sdk-1.1.0-jar-with-dependencies.jar</systemPath>
+        </dependency>
+
 
         <!-- 集成rabbitmq -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -39,7 +39,6 @@ public class faceController {
     private final LogService logService;
 
     static {
-
         user_ak = "3e94606c57e94776a6733ef43700bb91";
         user_sk = "0605fd2960dd44d49f4c3afb5c733c13";
 
@@ -103,7 +102,6 @@ public class faceController {
                 JSONObject response = null;
                 try{
                     response =(JSONObject)client.call(request);
-
                 }catch (Exception e){
                     logService.logError(e.getMessage());
                 }
@@ -114,13 +112,11 @@ public class faceController {
                 msg.setMsg("用户无人脸信息");
                 return msg;
             }
-
         }else {
             msg.setErrCode(403);
             msg.setMsg("禁止访问");
             return msg;
         }
-
     }
 
     /**
@@ -162,8 +158,6 @@ public class faceController {
         return response;
     }
 
-
-
     /**
      * 人脸搜索
      * @param faceRequest
@@ -198,9 +192,6 @@ public class faceController {
         map.put("result",msg);
         map.put("data",response);
         return map;
-
-
-
 
     }
 
