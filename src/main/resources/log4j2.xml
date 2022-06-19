@@ -49,29 +49,6 @@
 <!--                <SizeBasedTriggeringPolicy size="100 MB"/>-->
 <!--            </Policies>-->
 <!--        </RollingFile>-->
-        <!--写入数据库配置，在Logger中设置日志级别为info-->
-        <JDBC name="DatabaseAppender" tableName="info_log">
-            <ConnectionFactory class="com.ycu.zzzh.visual_impairment_3zh.utils.ConnectionFactory" method="getDatabaseConnection" />
-            <Column name="create_time" pattern="%d{yyyy-MM-dd HH:mm:ss}"/>
-            <Column name="log_class" pattern="%c" />
-            <Column name="log_level" pattern="%p" />
-            <Column name="log_message" pattern="%m"/>
-        </JDBC>
-        <!--写入数据库配置，在Logger中设置日志级别为debug-->
-        <JDBC name="DatabaseAppender2" tableName="debug_log">
-            <ConnectionFactory class="com.ycu.zzzh.visual_impairment_3zh.utils.ConnectionFactory" method="getDatabaseConnection" />
-            <Column name="create_time" pattern="%d{yyyy-MM-dd HH:mm:ss}"/>
-            <Column name="log_class" pattern="%c" />
-            <Column name="log_level" pattern="%p" />
-            <Column name="log_message" pattern="%m"/>
-        </JDBC>
-        <!--异步AsyncAppender进行配置直接引用上面的JDBC的name-->
-        <Async name="AsyncInfo">
-            <AppenderRef ref="DatabaseAppender"/>
-        </Async>
-        <Async name="AsyncDebug">
-            <AppenderRef ref="DatabaseAppender2"/>
-        </Async>
     </appenders>
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
@@ -87,7 +64,6 @@
 
         <logger name="com.ycu.zzzh.visual_impairment_3zh" level="info" additivity="false">
             <appender-ref ref="Console"/>
-            <appender-ref ref="AsyncInfo"/>
         </logger>
         <root level="info">
             <appender-ref ref="Console"/>

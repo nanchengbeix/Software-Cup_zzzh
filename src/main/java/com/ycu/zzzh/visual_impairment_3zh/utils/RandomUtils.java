@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * 生成随机数工具类
+ */
 public class RandomUtils {
 
     public final static char[] CHARS = new char[52];
@@ -197,20 +200,20 @@ public class RandomUtils {
         return simpleDateFormat.format(date);
     }
 
-    //
-    public static void main(String[] args) {
-        System.out.println(randomElement(new Integer[]{1,2,3,4,5,6}));
-        System.out.println(randomInt(8,19));
-        System.out.println(randomDouble(3,16,5));
-        System.out.println(randomFloat(5,8,7));
-
-        System.out.println(randomStr(32,true));
-        System.out.println(randomStr(32,false));
-        System.out.println(randomChinese(132));
-        System.out.println(randomIp());
-        System.out.println(randomMac());
-
-        System.out.println(getTimeRolling());
-
-    }
+//    //测试
+//    public static void main(String[] args) {
+//        System.out.println(randomElement(new Integer[]{1,2,3,4,5,6}));
+//        System.out.println(randomInt(8,19));
+//        System.out.println(randomDouble(3,16,5));
+//        System.out.println(randomFloat(5,8,7));
+//
+//        System.out.println(randomStr(32,true));
+//        System.out.println(randomStr(32,false));
+//        System.out.println(randomChinese(132));
+//        System.out.println(randomIp());
+//        System.out.println(randomMac());
+//
+//        System.out.println(getTimeRolling());
+//
+//    }
 }

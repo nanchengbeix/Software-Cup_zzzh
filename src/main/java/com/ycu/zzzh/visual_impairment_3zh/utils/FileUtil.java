@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 /**
  * @ClassName FileUtil
- * @description: TODO
+ * @description: 文件操作工具类
  * @Date 2022/5/30 19:49
  * @Version 1.0
  **/

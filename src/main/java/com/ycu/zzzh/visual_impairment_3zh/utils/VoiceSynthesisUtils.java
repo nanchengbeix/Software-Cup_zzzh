@@ -18,7 +18,7 @@ import java.io.FileOutputStream;
 
 /**
  * @ClassName VoiceSynthesisUtils
- * @description: TODO
+ * @description: 语音合成工具类
  * @Date 2022/5/6 16:07
  * @Version 1.0
  **/
@@ -50,7 +50,7 @@ public class VoiceSynthesisUtils {
                 String data = body.getString("data");
                 if(data != null && data.length() > 0) {
                     // System.out.println(data);
-                    //TODO 第二个参数改为raw文件存储路径
+                    //TODO 第二个参数改为raw文件(文字转语音的语音文件)存储路径
                     decoderBase64File(data, "D:\\desktop\\我的文件夹\\软件杯\\移动云\\api示例文件");
                     System.out.println("tts.raw created.");
                     msg.setMsg("tts.raw created.");

@@ -17,7 +17,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * 用户登陆与注册操作
+ */
 @RestController
 public class LoginController {
 

@@ -20,7 +20,7 @@ import static com.ycu.zzzh.visual_impairment_3zh.config.VoiceConfig.secret;
 
 /**
  * @ClassName VoiceController
- * @description: TODO
+ * @description: 语音听写控制类
  * @Date 2022/5/4 15:59
  * @Version 1.0
  **/

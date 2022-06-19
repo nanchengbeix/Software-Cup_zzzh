@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- *  * @version: V1.0
  *  * @className: DateUtil
  *  * @packageName: utils
  *  * @description: 时间操作工具类
@@ -275,15 +274,16 @@ public class DateUtil {
         String[] jj = null;
         kk = st1.split(":");
         jj = st2.split(":");
-        if (Integer.parseInt(kk[0]) < Integer.parseInt(jj[0]))
+        if (Integer.parseInt(kk[0]) < Integer.parseInt(jj[0])) {
             return "0";
-        else {
+        }else {
             double y = Double.parseDouble(kk[0]) + Double.parseDouble(kk[1]) / 60;
             double u = Double.parseDouble(jj[0]) + Double.parseDouble(jj[1]) / 60;
-            if ((y - u) > 0)
+            if ((y - u) > 0) {
                 return y - u + "";
-            else
-                return "0";
+            }else{
+                    return "0";
+            }
         }
     }
  
@@ -364,15 +364,17 @@ public class DateUtil {
         GregorianCalendar gc = (GregorianCalendar) Calendar.getInstance();
         gc.setTime(d);
         int year = gc.get(Calendar.YEAR);
-        if ((year % 400) == 0)
+        if ((year % 400) == 0) {
             return true;
-        else if ((year % 4) == 0) {
-            if ((year % 100) == 0)
+        }else if ((year % 4) == 0) {
+            if ((year % 100) == 0) {
                 return false;
-            else
+            }else {
                 return true;
-        } else
+            }
+        } else{
             return false;
+        }
     }
  
     /**

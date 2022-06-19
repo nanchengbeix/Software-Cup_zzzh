@@ -15,7 +15,7 @@ import javax.servlet.ServletRequest;
 
 /**
  * @ClassName CollectionsController
- * @description: TODO
+ * @description: 用户对收藏新闻的操作
  * @Date 2022/6/2 19:58
  * @Version 1.0
  **/

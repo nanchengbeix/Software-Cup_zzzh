@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * @ClassName VoiceUtils
- * @description: TODO
+ * @description: 语音听写工具类
  * @Date 2022/5/6 9:51
  * @Version 1.0
  **/
@@ -36,8 +36,7 @@ public class VoiceUtils {
     private static String url =  "/api/lingxiyun/cloud/iat/send_request/v1";
     private static String url2 = "/api/lingxiyun/cloud/iat/query_result/v1";
     private static String gatewayAddress = "https://api-wuxi-1.cmecloud.cn:8443";
-    @Autowired
-    private LogService logService;
+    private static LogService logService;
     public static URI sendFile(MultipartFile multipartFile, Map<String, String> sessionParam, int sliceSize, String iatHttpUrl, String sid) throws Exception {
         File file=null;
         file=FileUtil.multipartFileToFile(multipartFile);
@@ -88,12 +87,9 @@ public class VoiceUtils {
         if(jsonObject != null) {
             if (jsonObject.get("body") == null
                     || jsonObject.getJSONArray("body").size() > 0) {
-                //TODO 写为日志录入
-                System.out.println(response);
             }
         } else {
-            //TODO 写为日志录入
-            System.out.println("语音听写分片发送无响应");
+            logService.logError("%s:语音听写分片发送无响应",VoiceUtils.class.getSimpleName());
         }
     }
     public static byte[] getData(File file, int from, int size) throws Exception {
@@ -117,6 +113,7 @@ public class VoiceUtils {
     }
     public static Map<String, Object> getResult(String iatHttpUrl,String sid) throws Exception {
         String msg="分片发送完成";
+        Map<String,Object> map=new HashMap<>();
         ApiUrlTest urlTest = new ApiUrlTest();
         String urlpath = urlTest.doSignature(url2, "GET", accessKey, secret);
         iatHttpUrl = gatewayAddress + urlpath;
@@ -129,16 +126,12 @@ public class VoiceUtils {
         String response = EntityUtils.toString(httpResponse.getEntity());
         JSONObject jsonObject = JSONObject.parseObject(response);
         if(jsonObject != null) {
-            //TODO 写为日志录入
-            System.out.println("转写结果：" + jsonObject);
+            map.put("data",jsonObject);
         } else {
-            //TODO 写为日志录入
-            System.out.println("语音听写无转写结果");
+            logService.logError("%s:语音听写无转写结果",VoiceUtils.class.getSimpleName());
             msg="error";
         }
-        Map<String,Object> map=new HashMap<>();
         map.put("msg",msg);
-        map.put("data",jsonObject);
         return map;
     }
 }

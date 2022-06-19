@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * @ClassName HttpController
- * @description: TODO
+ * @description: HTTP示例 TODO 后期删除
  * @Date 2022/4/14 9:19
  * @Version 1.0
  **/
@@ -33,7 +33,6 @@ public class HttpController {
         JSONObject jsonObject = HttpClientUtil.doPostJson(URL, new JSONObject(paramMap));
         Object data = "data";
         String o = (String) jsonObject.get(data);
-        System.out.println(jsonObject);
         return o;
     }
 }
