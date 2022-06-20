@@ -63,7 +63,7 @@ public class ShiroConfig {
 
     /**
      * 不向 Spring容器中注册 JwtFilter Bean，防止 Spring 将 JwtFilter 注册为全局过滤器
-     * 全局过滤器会对所有请求进行拦截，而本例中只需要拦截除 /login 和 /logout 外的请求
+     * 全局过滤器会对所有请求进行拦截
      * 另一种简单做法是：直接去掉 jwtFilter()上的 @Bean 注解
      */
     @Bean

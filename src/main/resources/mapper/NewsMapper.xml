@@ -10,7 +10,7 @@
             <result property="tag" column="tag" jdbcType="INTEGER"/>
             <result property="viewsNum" column="views_num" jdbcType="INTEGER"/>
             <result property="commentNum" column="comment_num" jdbcType="INTEGER"/>
-            <result property="contentId" column="content_id" jdbcType="INTEGER"/>
+            <result property="contentId" column="content_id" jdbcType="VARCHAR"/>
             <result property="creatorId" column="creator_id" jdbcType="INTEGER"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
             <result property="pre" column="pre" jdbcType="VARCHAR"/>

@@ -4,6 +4,7 @@ import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -12,10 +13,13 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
 
 
 /**
@@ -81,8 +85,8 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 //        // 获取当前用户
-//        User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
-//        // User currentUser = (User)principals.getPrimaryPrincipal();
+////        User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
+//         User currentUser = (User)principals.getPrimaryPrincipal();
 //        // 查询数据库，获取用户的角色信息
 //        Set<String> roles = roleMap.get(currentUser.getName());
 //        // 查询数据库，获取用户的权限信息

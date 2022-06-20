@@ -59,7 +59,6 @@
 <!--        </logger>-->
         <logger name="com.ycu.zzzh.visual_impairment_3zh.mapper" level="debug" additivity="false">
             <appender-ref ref="Console" level="debug"/>
-            <appender-ref ref="AsyncDebug" level="debug"/>
         </logger>
 
         <logger name="com.ycu.zzzh.visual_impairment_3zh" level="info" additivity="false">

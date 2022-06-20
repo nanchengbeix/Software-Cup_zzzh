@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 /**
  * @ClassName OCRController
- * @description: TODO
+ * @description: 文字识别
  * @Date 2022/5/3 19:37
  * @Version 1.0
  **/
@@ -64,7 +64,13 @@ public class OCRController {
             return responseBase64;
         }
     }
-        @PostMapping("handwriting")
+
+    /**
+     * 手写体识别
+     * @param baseReceive
+     * @return
+     */
+    @PostMapping("handwriting")
         public JSONObject handwriting(@RequestBody BaseReceive baseReceive){
             System.out.println(baseReceive.getBase64());
             HashMap<String, Object> generalParams = new HashMap<>();

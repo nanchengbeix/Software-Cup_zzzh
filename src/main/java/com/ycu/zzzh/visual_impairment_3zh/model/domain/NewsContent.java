@@ -18,7 +18,7 @@ public class NewsContent implements Serializable {
      * 
      */
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private String id;
 
     /**
      * 新闻内容

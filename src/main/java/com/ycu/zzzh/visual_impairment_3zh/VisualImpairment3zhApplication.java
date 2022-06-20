@@ -14,8 +14,11 @@ import org.springframework.context.annotation.Bean;
 public class VisualImpairment3zhApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(VisualImpairment3zhApplication.class, args);
-
+        try {
+            SpringApplication.run(VisualImpairment3zhApplication.class, args);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Bean

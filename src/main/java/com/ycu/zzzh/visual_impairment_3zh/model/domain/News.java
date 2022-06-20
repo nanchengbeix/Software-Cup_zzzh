@@ -48,7 +48,7 @@ public class News implements Serializable {
     /**
      * 新闻内容id
      */
-    private Integer contentId;
+    private String contentId;
 
     /**
      * 新闻出版者

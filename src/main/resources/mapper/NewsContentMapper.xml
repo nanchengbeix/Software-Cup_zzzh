@@ -5,7 +5,7 @@
 <mapper namespace="com.ycu.zzzh.visual_impairment_3zh.mapper.NewsContentMapper">
 
     <resultMap id="BaseResultMap" type="com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsContent">
-            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="words" column="words" jdbcType="INTEGER"/>
     </resultMap>

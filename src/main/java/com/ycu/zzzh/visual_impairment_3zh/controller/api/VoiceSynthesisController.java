@@ -27,7 +27,7 @@ import static com.ycu.zzzh.visual_impairment_3zh.utils.VoiceSynthesisUtils.send;
 
 /**
  * @ClassName VoiceSynthesisController
- * @description: TODO
+ * @description: 语音合成控制类
  * @Date 2022/5/6 15:28
  * @Version 1.0
  **/
