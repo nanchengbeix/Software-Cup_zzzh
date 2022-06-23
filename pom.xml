@@ -257,7 +257,9 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <mainClass>VisualImpairment3zhApplication</mainClass>
+                    <fork>true</fork>
+                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                    <mainClass>com.ycu.zzzh.visual_impairment_3zh.VisualImpairment3zhApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -54,9 +54,9 @@ public class NewsResult {
     private Integer viewsNum;
 
     /**
-     * 新闻评论数
+     * 新闻收藏数
      */
-    private Integer commentNum;
+    private Integer collectNum;
 
     /**
      * 新闻发布时间

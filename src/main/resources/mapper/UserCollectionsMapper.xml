@@ -19,7 +19,7 @@
         select n.id,n.title,na.author,
                substring(nc.content,1,30) as content,
                nc.words,ns.tag_name,n.views_num,
-               n.comment_num,n.created_time,n.pre
+               n.comment_num,n.created_time,n.raw_key_words
         from news n
                  left join news_content nc on n.content_id = nc.id
                  left join news_author na on n.creator_id=na.id

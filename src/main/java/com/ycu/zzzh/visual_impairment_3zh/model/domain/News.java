@@ -61,9 +61,9 @@ public class News implements Serializable {
     private Date createdTime;
 
     /**
-     * 预留字段
+     * 热词
      */
-    private String pre;
+    private String rawKeyWords;
 
     @TableField(exist = false)
     @Setter

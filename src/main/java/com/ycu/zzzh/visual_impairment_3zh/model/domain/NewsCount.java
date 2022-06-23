@@ -9,26 +9,26 @@ import lombok.Data;
 
 /**
  * 
- * @TableName news_content
+ * @TableName news_count
  */
-@TableName(value ="news_content")
+@TableName(value ="news_count")
 @Data
-public class NewsContent implements Serializable {
+public class NewsCount implements Serializable {
     /**
-     * 新闻内容id
+     * 新闻id
      */
-    @TableId(type = IdType.AUTO)
-    private String id;
+    @TableId
+    private Integer nid;
 
     /**
-     * 新闻内容
+     * 新闻阅读量
      */
-    private String content;
+    private Integer viewsNum;
 
     /**
-     * 新闻内容字数
+     * 新闻收藏量
      */
-    private Integer words;
+    private Integer collectNum;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

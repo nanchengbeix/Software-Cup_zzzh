@@ -6,11 +6,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsContentMapper;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsCountMapper;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsSortMapper;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.News;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsCondition;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsContent;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsSort;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.*;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.NewsService;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
 * @author 胡富国
@@ -38,6 +37,8 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     private NewsSortMapper newsSortMapper;
     @Autowired
     private LogService logService;
+    @Autowired
+    private NewsCountMapper newsCountMapper;
     @Override
     //根据id删除新闻
     public Boolean newsRemoveService(String nids) {
@@ -46,6 +47,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         News news = new News();
        for (int i=0;i<nidstr.length;i++){
            newsMapper.deleteById(Integer.valueOf(nidstr[i]));
+           newsCountMapper.deleteById(Integer.valueOf(nidstr[i]));
        }
         return true;
     }
@@ -91,9 +93,21 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     public boolean newsAddService(News news) {
         //获取新闻内容
         NewsContent newsContent =news.getNewsContent();
+        //创建新闻统计表对象
+        NewsCount newsCount = new NewsCount();
+        newsContent.setId(String.valueOf(UUID.randomUUID()));
         news.setContentId(newsContent.getId());
-        int insert1 = newsContentMapper.insert(newsContent);
-        int insert2 = newsMapper.insert(news);
+        newsContentMapper.insert(newsContent);
+        newsMapper.insert(news);
+        QueryWrapper<News> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("content_id",newsContent.getId());
+        News newsGetId = newsMapper.selectOne(queryWrapper);
+        //TODO 返回错误
+        if (newsGetId == null){
+            return false;
+        }
+        newsCount.setNid(newsGetId.getId());
+        newsCountMapper.insert(newsCount);
         return true;
     }
     //新闻内容查询
@@ -102,11 +116,12 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         Map<String,Object> map= new HashMap<>();
         //根据id获取新闻数据
         News news = newsMapper.selectById(id);
+        NewsCount newsCount = newsCountMapper.selectById(news.getId());
         //根据新闻数据中的contentId获取新闻内容
         NewsContent newsContent = newsContentMapper.selectById(news.getContentId());
-        news.setViewsNum(news.getViewsNum()+1);
-        newsMapper.updateById(news);
-        //TODO 判断是否有新闻内容与新闻对应，如没有计入日志
+        newsCount.setViewsNum(newsCount.getViewsNum()+1);
+        newsCountMapper.updateById(newsCount);
+        //TODO 抛空
         if (newsContent.getContent()==null||newsContent.getContent().equals("")){
             logService.logError("%s的新闻内容不存在",news.getId());
             return null;
@@ -114,6 +129,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         map.put("msg","success");
         map.put("createdTime",news.getCreatedTime() );
         map.put("newsContent",newsContent);
+        map.put("rawKeyWords",news.getRawKeyWords());
 
         return map;
     }

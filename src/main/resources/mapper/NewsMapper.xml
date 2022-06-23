@@ -13,20 +13,21 @@
             <result property="contentId" column="content_id" jdbcType="VARCHAR"/>
             <result property="creatorId" column="creator_id" jdbcType="INTEGER"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
-            <result property="pre" column="pre" jdbcType="VARCHAR"/>
+            <result property="rawKeyWords" column="raw_key_words" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="selNewsInfoMapper" resultType="com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult">
         select n.id,n.title,na.author,substring(nc.content,1,30) as content,
-        nc.words,ns.tag_name,n.views_num,n.comment_num,
-        n.created_time,n.pre
+        nc.words,ns.tag_name,c.views_num,c.collect_num,
+        n.created_time,n.raw_key_words
         from news n
         left join news_content nc on n.content_id = nc.id
         left join news_author na on n.creator_id=na.id
         left join news_sort ns on n.tag = ns.id
+        left join news_count c on n.id = c.nid
         <where>
             <if test="newsCondition.title!='' and newsCondition.title!= null">
                 <bind name="titlename" value="'%'+newsCondition.title+'%'"/>
-                and n.title like #{titlename}
+                and n.title like #{titlename} or n.raw_key_words like #{titlename}
             </if>
             <if test="newsCondition.tag!='' and newsCondition.tag!= null">
                 and tag=#{newsCondition.tag}

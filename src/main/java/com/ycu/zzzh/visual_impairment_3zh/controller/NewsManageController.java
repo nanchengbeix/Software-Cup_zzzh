@@ -33,14 +33,16 @@ import static com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils.AUTH_HEADER;
 public class NewsManageController {
     private final NewsService newsService;
     private final LogService logService;
-    private static final Logger log = LoggerFactory.getLogger(NewsController.class);
 
     public NewsManageController(NewsService newsService, LogService logService) {
         this.newsService = newsService;
         this.logService = logService;
     }
+
     /**
-     * 新闻删除
+     * 批量删除
+     * @param nids 前端返回的以，分隔的新闻id
+     * @return
      */
     @RequestMapping("newsRemove")
     public ToResult newsRemove(String nids){
