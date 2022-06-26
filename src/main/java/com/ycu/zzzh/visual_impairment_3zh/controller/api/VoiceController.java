@@ -1,11 +1,9 @@
 package com.ycu.zzzh.visual_impairment_3zh.controller.api;
 
-import com.ycu.zzzh.visual_impairment_3zh.utils.ApiUrlTest;
-import com.ycu.zzzh.visual_impairment_3zh.utils.AudioUtils;
-import com.ycu.zzzh.visual_impairment_3zh.utils.VoiceUtils;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.ApiUrlTest;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.VoiceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 

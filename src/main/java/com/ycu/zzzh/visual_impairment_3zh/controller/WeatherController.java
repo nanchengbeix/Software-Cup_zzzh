@@ -1,9 +1,8 @@
 package com.ycu.zzzh.visual_impairment_3zh.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ycu.zzzh.visual_impairment_3zh.utils.weather.WeatherSearcher;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.weather.WeatherSearcher;
 import lombok.SneakyThrows;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

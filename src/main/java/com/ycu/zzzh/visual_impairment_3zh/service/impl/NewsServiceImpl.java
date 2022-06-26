@@ -7,12 +7,12 @@ import com.github.pagehelper.PageHelper;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsContentMapper;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsCountMapper;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsMapper;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsSortMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.*;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.NewsService;
-import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -116,20 +116,23 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         Map<String,Object> map= new HashMap<>();
         //根据id获取新闻数据
         News news = newsMapper.selectById(id);
+//        //抛空
+//        if (!StringUtils.hasText(news.getTitle())){
+//            logService.logError("%s的新闻内容不存在",news.getId());
+//            return null;
+//        }
+        //根据新闻id获取新闻统计数据
         NewsCount newsCount = newsCountMapper.selectById(news.getId());
         //根据新闻数据中的contentId获取新闻内容
         NewsContent newsContent = newsContentMapper.selectById(news.getContentId());
         newsCount.setViewsNum(newsCount.getViewsNum()+1);
         newsCountMapper.updateById(newsCount);
-        //TODO 抛空
-        if (newsContent.getContent()==null||newsContent.getContent().equals("")){
-            logService.logError("%s的新闻内容不存在",news.getId());
-            return null;
-        }
+
         map.put("msg","success");
         map.put("createdTime",news.getCreatedTime() );
         map.put("newsContent",newsContent);
         map.put("rawKeyWords",news.getRawKeyWords());
+        map.put("sid",news.getTag());
 
         return map;
     }

@@ -6,11 +6,9 @@ import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserFace;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserFaceService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.UserFaceMapper;
-import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
 * @author 胡富国

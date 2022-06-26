@@ -3,7 +3,7 @@
  * fileName: DateUtil.java
  * packageName: utils
  */
-package com.ycu.zzzh.visual_impairment_3zh.utils;
+package com.ycu.zzzh.visual_impairment_3zh.common.utils;
  
 import java.sql.Timestamp;
 import java.text.ParseException;

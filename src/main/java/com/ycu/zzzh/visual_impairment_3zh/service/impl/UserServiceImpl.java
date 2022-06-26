@@ -9,7 +9,7 @@ import com.ycu.zzzh.visual_impairment_3zh.mapper.UserMapper;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
-import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.DateUtil;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

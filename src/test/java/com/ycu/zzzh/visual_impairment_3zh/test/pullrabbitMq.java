@@ -1,7 +1,7 @@
 //package com.ycu.zzzh.visual_impairment_3zh.test;
 //
 //import com.rabbitmq.client.BuiltinExchangeType;
-//import com.ycu.zzzh.visual_impairment_3zh.utils.RabbitMqUtils;
+//import com.ycu.zzzh.visual_impairment_3zh.common.utils.RabbitMqUtils;
 //import org.junit.jupiter.api.Test;
 //
 //import java.io.IOException;

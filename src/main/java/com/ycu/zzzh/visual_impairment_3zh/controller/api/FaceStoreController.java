@@ -6,13 +6,11 @@ import com.chinamobile.cmss.sdk.face.http.constant.Region;
 import com.chinamobile.cmss.sdk.face.http.signature.Credential;
 import com.chinamobile.cmss.sdk.face.request.IECloudRequest;
 import com.chinamobile.cmss.sdk.face.request.face.FaceRequestFactory;
-import com.ycu.zzzh.visual_impairment_3zh.utils.ImageBase64Util;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName FaceStoreController

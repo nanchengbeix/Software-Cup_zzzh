@@ -10,7 +10,7 @@ import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserCollectionsService;
 import com.ycu.zzzh.visual_impairment_3zh.mapper.UserCollectionsMapper;
-import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

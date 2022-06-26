@@ -1,26 +1,18 @@
 package com.ycu.zzzh.visual_impairment_3zh.controller;
 
-import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
-import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.News;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsCondition;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.ToResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.NewsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-
-import static com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils.AUTH_HEADER;
 
 /**
  * @ClassName NewsManageController
@@ -104,16 +96,7 @@ public class NewsManageController {
      * @return
      */
     @RequestMapping("newsContentInfo")
-    public Map<String,Object> newsContentInfo(String id, ServletRequest request) {
-        //获取请求头中的token
-        HttpServletRequest req= (HttpServletRequest) request;
-        String token=req.getHeader(AUTH_HEADER);
-        if(token!=null&&token!=""){
-//            //获取token中的用户id
-//            String uid = JwtUtils.getUserFiled(token, "uid");
-//            //记录用户行为
-//            logService.logUserBehavior(LogsString.UserViewNews,uid,id);
-        }
+    public Map<String,Object> newsContentInfo(String id) {
         return newsService.newsContentInfoService(id);
     }
 

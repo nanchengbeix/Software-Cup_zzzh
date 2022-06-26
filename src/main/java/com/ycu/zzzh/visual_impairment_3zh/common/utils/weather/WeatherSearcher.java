@@ -1,8 +1,8 @@
-package com.ycu.zzzh.visual_impairment_3zh.utils.weather;
+package com.ycu.zzzh.visual_impairment_3zh.common.utils.weather;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.ycu.zzzh.visual_impairment_3zh.utils.HttpClientUtil;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.HttpClientUtil;
 
 
 /**

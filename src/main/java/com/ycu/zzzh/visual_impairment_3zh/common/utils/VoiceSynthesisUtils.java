@@ -1,9 +1,8 @@
-package com.ycu.zzzh.visual_impairment_3zh.utils;
+package com.ycu.zzzh.visual_impairment_3zh.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ycu.zzzh.visual_impairment_3zh.config.VoiceConfig;
-import com.ycu.zzzh.visual_impairment_3zh.controller.api.VoiceSynthesisController;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

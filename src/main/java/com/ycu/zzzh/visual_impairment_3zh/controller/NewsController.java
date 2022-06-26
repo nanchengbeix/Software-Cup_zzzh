@@ -3,14 +3,15 @@ package com.ycu.zzzh.visual_impairment_3zh.controller;
 import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogsString;
-import com.ycu.zzzh.visual_impairment_3zh.model.domain.*;
+import com.ycu.zzzh.visual_impairment_3zh.model.domain.NewsCondition;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
-import com.ycu.zzzh.visual_impairment_3zh.model.result.ToResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.NewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,14 @@ public class NewsController {
      * @return
      */
     @RequestMapping("newsContentInfo")
-    public Map<String,Object> newsContentInfo(String id, ServletRequest request) {
+    public Map<String,Object> newsContentInfo(@RequestParam String id,ServletRequest request) {
+        Map<String, Object> map = newsService.newsContentInfoService(id);
+        if (map.isEmpty()){
+            map.put("errCode",404);
+            map.put("msg","查询不到此新闻");
+            return map;
+        }
+        String sid= String.valueOf(map.get("sid"));
         //获取请求头中的token
         HttpServletRequest req= (HttpServletRequest) request;
         String token=req.getHeader(AUTH_HEADER);
@@ -68,9 +76,9 @@ public class NewsController {
             //获取token中的用户id
             String uid = JwtUtils.getUserFiled(token, "uid");
             //记录用户行为
-            logService.logUserBehavior(LogsString.UserViewNews,uid,id);
+            logService.logUserBehavior(LogsString.UserViewNews,uid,sid,id);
         }
-        return newsService.newsContentInfoService(id);
+        return map;
     }
 
 

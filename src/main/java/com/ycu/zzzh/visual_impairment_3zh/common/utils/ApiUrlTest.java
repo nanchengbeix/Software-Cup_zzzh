@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.utils;
+package com.ycu.zzzh.visual_impairment_3zh.common.utils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

@@ -1,29 +1,18 @@
 package com.ycu.zzzh.visual_impairment_3zh.controller.api;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.ycu.zzzh.visual_impairment_3zh.config.VoiceConfig;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
-import com.ycu.zzzh.visual_impairment_3zh.utils.ApiUrlTest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+import com.ycu.zzzh.visual_impairment_3zh.common.utils.ApiUrlTest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.BASE64Decoder;
 
-import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import static com.ycu.zzzh.visual_impairment_3zh.config.VoiceConfig.secret;
-import static com.ycu.zzzh.visual_impairment_3zh.utils.VoiceSynthesisUtils.send;
+import static com.ycu.zzzh.visual_impairment_3zh.common.utils.VoiceSynthesisUtils.send;
 
 /**
  * @ClassName VoiceSynthesisController

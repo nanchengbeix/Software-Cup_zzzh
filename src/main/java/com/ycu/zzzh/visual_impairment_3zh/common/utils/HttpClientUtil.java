@@ -1,4 +1,4 @@
-package com.ycu.zzzh.visual_impairment_3zh.utils;
+package com.ycu.zzzh.visual_impairment_3zh.common.utils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,13 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;

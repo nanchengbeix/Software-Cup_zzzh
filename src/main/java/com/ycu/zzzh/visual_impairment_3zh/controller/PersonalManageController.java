@@ -5,22 +5,14 @@ import com.ycu.zzzh.visual_impairment_3zh.model.domain.User;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserAvatarService;
 import com.ycu.zzzh.visual_impairment_3zh.service.UserService;
-import com.ycu.zzzh.visual_impairment_3zh.utils.DateUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.UUID;
-
-import static com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils.AUTH_HEADER;
 
 /**
  * @ClassName PersonalManageController
