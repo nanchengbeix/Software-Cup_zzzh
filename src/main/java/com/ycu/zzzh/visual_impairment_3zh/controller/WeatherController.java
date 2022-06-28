@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherController {
     @SneakyThrows
     @RequestMapping("weather")
-    public JSONObject getWeather(@RequestParam() String longitude, @RequestParam String latitude){
-        return WeatherSearcher.getLocation(longitude,latitude);
+    public JSONObject getWeather(@RequestParam() String city){
+        return WeatherSearcher.getWeather(city);
     }
 }
