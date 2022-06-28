@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.ycu.zzzh.visual_impairment_3zh.common.constant.UserForNewsStatus;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
-import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsContentMapper;
-import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsCountMapper;
-import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsMapper;
-import com.ycu.zzzh.visual_impairment_3zh.mapper.NewsSortMapper;
+import com.ycu.zzzh.visual_impairment_3zh.mapper.*;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.*;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
@@ -39,8 +37,15 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     private LogService logService;
     @Autowired
     private NewsCountMapper newsCountMapper;
+    @Autowired
+    private UserLikeMapper userLikeMapper;
+    @Autowired
+    private UserCollectionsMapper userCollectionsMapper;
+
     @Override
-    //根据id删除新闻
+    /**
+     * 根据id删除新闻
+     */
     public Boolean newsRemoveService(String nids) {
         //获取要删除的新闻ID的数组
         String[] nidstr=nids.split(",");
@@ -51,7 +56,12 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
        }
         return true;
     }
-    //修改新闻
+
+    /**
+     * 修改新闻
+     * @param news
+     * @return
+     */
     @Override
     public boolean newsUpdateService(News news) {
         //根据id修改新闻表（一定要传id）
@@ -88,7 +98,9 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         return pageResult;
     }
 
-    //新增新闻
+    /**
+     * 新增新闻
+     */
     @Override
     public boolean newsAddService(News news) {
         //获取新闻内容
@@ -110,23 +122,78 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         newsCountMapper.insert(newsCount);
         return true;
     }
-    //新闻内容查询
+
+    /**
+     * 访客新闻内容查询
+     * @param id
+     * @return
+     */
     @Override
     public Map<String, Object> newsContentInfoService(String id) {
         Map<String,Object> map= new HashMap<>();
         //根据id获取新闻数据
         News news = newsMapper.selectById(id);
-//        //抛空
-//        if (!StringUtils.hasText(news.getTitle())){
-//            logService.logError("%s的新闻内容不存在",news.getId());
-//            return null;
-//        }
         //根据新闻id获取新闻统计数据
         NewsCount newsCount = newsCountMapper.selectById(news.getId());
         //根据新闻数据中的contentId获取新闻内容
         NewsContent newsContent = newsContentMapper.selectById(news.getContentId());
+        //抛空
+        if (newsContent == null){
+            logService.logError("%s的新闻内容不存在",news.getId());
+            return null;
+        }
         newsCount.setViewsNum(newsCount.getViewsNum()+1);
         newsCountMapper.updateById(newsCount);
+
+        map.put("msg","success");
+        map.put("createdTime",news.getCreatedTime() );
+        map.put("newsContent",newsContent);
+        map.put("rawKeyWords",news.getRawKeyWords());
+        map.put("sid",news.getTag());
+
+        return map;
+    }
+
+    /**
+     * 用户新闻内容查询
+     * @param uid
+     * @param nid
+     * @return
+     */
+    @Override
+    public Map<String, Object> newsContentInfoService(String uid, String nid) {
+        Map<String,Object> map= new HashMap<>();
+        //根据id获取新闻数据
+        News news = newsMapper.selectById(nid);
+        //根据新闻id获取新闻统计数据
+        NewsCount newsCount = newsCountMapper.selectById(news.getId());
+        //根据新闻数据中的contentId获取新闻内容
+        NewsContent newsContent = newsContentMapper.selectById(news.getContentId());
+        //抛空
+        if (newsContent == null){
+            logService.logError("%s的新闻内容不存在",news.getId());
+            return null;
+        }
+        newsCount.setViewsNum(newsCount.getViewsNum()+1);
+        newsCountMapper.updateById(newsCount);
+        //查询用户是否收藏此新闻
+        QueryWrapper<UserCollections> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userid",Integer.valueOf(uid)).eq("newid",Integer.valueOf(nid));
+        UserCollections userCollections = userCollectionsMapper.selectOne(queryWrapper);
+        if (userCollections!=null){
+            map.put("isCollect", UserForNewsStatus.COLLECT);
+        }else {
+            map.put("isCollect", UserForNewsStatus.NOTCOLLECT);
+        }
+        //查询用户是否点赞此新闻
+        QueryWrapper<UserLike> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("uid",Integer.valueOf(uid)).eq("nid",Integer.valueOf(nid));
+        UserLike userLike = userLikeMapper.selectOne(queryWrapper2);
+        if (userLike != null){
+            map.put("isLike",UserForNewsStatus.LIKE);
+        }else {
+            map.put("isLike",UserForNewsStatus.NOLIKE);
+        }
 
         map.put("msg","success");
         map.put("createdTime",news.getCreatedTime() );

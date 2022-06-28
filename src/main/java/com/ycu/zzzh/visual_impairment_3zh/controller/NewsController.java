@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils.AUTH_HEADER;
@@ -62,23 +63,34 @@ public class NewsController {
      */
     @RequestMapping("newsContentInfo")
     public Map<String,Object> newsContentInfo(@RequestParam String id,ServletRequest request) {
-        Map<String, Object> map = newsService.newsContentInfoService(id);
-        if (map.isEmpty()){
-            map.put("errCode",404);
-            map.put("msg","查询不到此新闻");
-            return map;
-        }
-        String sid= String.valueOf(map.get("sid"));
+        Map<String, Object> map= new HashMap<>();
         //获取请求头中的token
         HttpServletRequest req= (HttpServletRequest) request;
         String token=req.getHeader(AUTH_HEADER);
         if(token!=null&&token!=""){
             //获取token中的用户id
             String uid = JwtUtils.getUserFiled(token, "uid");
+            //获取新闻内容
+            map = newsService.newsContentInfoService(uid,id);
+            if (map.isEmpty()){
+                map.put("errCode",404);
+                map.put("msg","查询不到此新闻");
+                return map;
+            }
+            String sid= String.valueOf(map.get("sid"));
             //记录用户行为
             logService.logUserBehavior(LogsString.UserViewNews,uid,sid,id);
+            return map;
+        }else {
+            //获取新闻内容
+            map = newsService.newsContentInfoService(id);
+            if (map.isEmpty()){
+                map.put("errCode",404);
+                map.put("msg","查询不到此新闻");
+                return map;
+            }
+            return map;
         }
-        return map;
     }
 
 

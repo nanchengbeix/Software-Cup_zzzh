@@ -18,8 +18,4 @@ public class createFaceRequest {
      * 人脸图片Base64编码
      */
     String image;
-    /**
-     * 人脸库id
-     */
-    String faceStoreId;
 }

@@ -20,7 +20,7 @@ public class UserLike implements Serializable {
      * 主键
      */
     @TableId(type = IdType.AUTO)
-    private Integer index;
+    private Integer id;
 
     /**
      * 用户id

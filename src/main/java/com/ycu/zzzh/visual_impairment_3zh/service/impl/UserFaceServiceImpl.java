@@ -31,7 +31,7 @@ public class UserFaceServiceImpl extends ServiceImpl<UserFaceMapper, UserFace>
         userFace.setCreateTime(DateUtil.nowDateTime());
         userFaceMapper.insert(userFace);
         Msg msg=new Msg();
-        msg.setMsg("录入成功");
+        msg.setMsg("人脸录入成功");
         return msg;
     }
 }

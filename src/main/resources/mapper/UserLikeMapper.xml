@@ -5,14 +5,14 @@
 <mapper namespace="com.ycu.zzzh.visual_impairment_3zh.mapper.UserLikeMapper">
 
     <resultMap id="BaseResultMap" type="com.ycu.zzzh.visual_impairment_3zh.model.domain.UserLike">
-            <id property="index" column="index" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="uid" column="uid" jdbcType="INTEGER"/>
             <result property="nid" column="nid" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        index,uid,nid,
+        id,uid,nid,
         create_time
     </sql>
 </mapper>

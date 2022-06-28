@@ -1,12 +1,5 @@
 package com.ycu.zzzh.visual_impairment_3zh.config;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.Filter;
-
 import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtFilter;
 import com.ycu.zzzh.visual_impairment_3zh.shiro.JwtCredentialsMatcher;
 import com.ycu.zzzh.visual_impairment_3zh.shiro.JwtRealm;
@@ -30,6 +23,12 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.Filter;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Configuration
@@ -95,7 +94,8 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilters(filterMap);
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        filterChainDefinitionMap.put("/login", "anon"); // 可匿名访问
+        filterChainDefinitionMap.put("/login", "anon"); // 密码登录
+        filterChainDefinitionMap.put("/humanLogin", "anon"); // 人脸登录
         filterChainDefinitionMap.put("/news/newsContentInfo", "anon"); // 可匿名访问
         filterChainDefinitionMap.put("/news/newsInfo", "anon"); // 可匿名访问
         filterChainDefinitionMap.put("/registered","anon");//注册页面

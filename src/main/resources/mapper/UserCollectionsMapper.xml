@@ -5,14 +5,14 @@
 <mapper namespace="com.ycu.zzzh.visual_impairment_3zh.mapper.UserCollectionsMapper">
 
     <resultMap id="BaseResultMap" type="com.ycu.zzzh.visual_impairment_3zh.model.domain.UserCollections">
-            <id property="index" column="index" jdbcType="INTEGER"/>
+            <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="userid" column="userid" jdbcType="BIGINT"/>
             <result property="newid" column="newid" jdbcType="BIGINT"/>
             <result property="curtime" column="curtime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        index,userid,newid,
+        id,userid,newid,
         curtime
     </sql>
     <select id="selColNewsInfoMapper" resultType="com.ycu.zzzh.visual_impairment_3zh.model.result.NewsResult">

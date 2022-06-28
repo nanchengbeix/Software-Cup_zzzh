@@ -24,4 +24,6 @@ public interface NewsService extends IService<News> {
     boolean newsAddService(News news);
     //新闻内容查询
     Map<String, Object> newsContentInfoService(String id);
+    //新闻内容查询
+    Map<String, Object> newsContentInfoService(String uid,String nid);
 }

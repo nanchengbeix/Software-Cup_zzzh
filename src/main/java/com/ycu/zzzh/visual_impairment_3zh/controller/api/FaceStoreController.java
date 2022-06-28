@@ -43,10 +43,9 @@ public class FaceStoreController {
     public JSONObject createFaceStore(String name){
         JSONObject params = new JSONObject();
         List<String> list=new ArrayList<>();
-        list.add("FACE_TOKEN");
         list.add("username");
 
-        params.put("description", "人脸库实例");//人脸库id:6273cc5cfd04d200010064bb
+        params.put("description", "人脸库实例");//人脸库id:62baa51861146b000132125f
         params.put("name", name);
         params.put("exDescriptions", list);
         JSONObject response = null;
@@ -64,6 +63,7 @@ public class FaceStoreController {
      * @param faceStoreId
      * @return
      */
+    @RequestMapping("deleteFaceStore")
     public JSONObject deleteFaceStore(String faceStoreId){
         JSONObject params = new JSONObject();
         params.put("faceStoreId", faceStoreId);

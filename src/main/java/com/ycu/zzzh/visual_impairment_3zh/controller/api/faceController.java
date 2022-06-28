@@ -7,6 +7,7 @@ import com.chinamobile.cmss.sdk.face.http.constant.Region;
 import com.chinamobile.cmss.sdk.face.http.signature.Credential;
 import com.chinamobile.cmss.sdk.face.request.IECloudRequest;
 import com.chinamobile.cmss.sdk.face.request.face.FaceRequestFactory;
+import com.ycu.zzzh.visual_impairment_3zh.common.constant.ApiConstants;
 import com.ycu.zzzh.visual_impairment_3zh.jwt.JwtUtils;
 import com.ycu.zzzh.visual_impairment_3zh.logs.LogService;
 import com.ycu.zzzh.visual_impairment_3zh.model.domain.UserFace;
@@ -31,18 +32,14 @@ import java.util.*;
 @RequestMapping("api")
 @RestController
 public class faceController {
-    public static String user_ak;
-    private static String user_sk;
     private static ECloudDefaultClient client;
 
     private final UserFaceService userFaceService;
     private final LogService logService;
 
     static {
-        user_ak = "3e94606c57e94776a6733ef43700bb91";
-        user_sk = "0605fd2960dd44d49f4c3afb5c733c13";
 
-        Credential credential = new Credential(user_ak, user_sk);
+        Credential credential = new Credential(ApiConstants.user_ak, ApiConstants.user_sk);
         client = new ECloudDefaultClient(credential, Region.POOL_SZ);
     }
 
@@ -81,7 +78,7 @@ public class faceController {
     }
 
     /**
-     * 删除用户人脸库信息
+     * 删除人脸库中的人脸信息
      * @param req
      * @return
      */
