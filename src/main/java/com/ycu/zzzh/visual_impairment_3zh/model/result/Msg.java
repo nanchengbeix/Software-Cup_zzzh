@@ -31,5 +31,8 @@ public class Msg<T> implements Serializable {
     @JsonInclude(value= JsonInclude.Include.NON_NULL)
     private T data;
 
-
+    public void efound(Integer errCode, String msg) {
+        this.errCode = errCode;
+        this.msg = msg;
+    }
 }

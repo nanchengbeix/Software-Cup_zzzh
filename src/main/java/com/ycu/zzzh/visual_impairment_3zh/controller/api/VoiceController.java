@@ -33,8 +33,6 @@ public class VoiceController {
     /**
      * 语音听写
      * @param voiceFile 音频文件。wav存储位置
-     * @return
-     * @throws Exception
      */
     @PostMapping("dictation")
     public Map<String, Object> dictation(MultipartFile voiceFile)  {

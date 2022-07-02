@@ -7,6 +7,8 @@
     <resultMap id="BaseResultMap" type="com.ycu.zzzh.visual_impairment_3zh.model.domain.User">
             <id property="uid" column="uid" jdbcType="INTEGER"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="tags" column="tag" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
             <result property="birth" column="birth" jdbcType="DATE"/>
@@ -19,8 +21,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        uid,username,phone,
-        pwd,birth,site,
+        uid,username,nickname,tags,
+        phone,pwd,birth,site,
         status,modifier,create_time,
         deleted_time,lastModifid_time
     </sql>

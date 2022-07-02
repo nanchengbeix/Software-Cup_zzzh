@@ -2,7 +2,7 @@ package com.ycu.zzzh.visual_impairment_3zh.common.constant;
 
 /**
  * @ClassName UrlConstants
- * @description: TODO
+ * @description: URL常量
  * @Date 2022/6/28 14:57
  * @Version 1.0
  **/

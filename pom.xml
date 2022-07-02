@@ -91,6 +91,12 @@
             </exclusions>
         </dependency>
 
+        <!--校验参数-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
         <!--spring boot热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

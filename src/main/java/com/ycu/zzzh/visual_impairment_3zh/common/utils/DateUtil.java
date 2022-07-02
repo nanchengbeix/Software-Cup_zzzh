@@ -87,7 +87,7 @@ public class DateUtil {
      * @return
      */
     public static String getTimeShort() {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
         String dateString = formatter.format(new Date());
         return dateString;
     }

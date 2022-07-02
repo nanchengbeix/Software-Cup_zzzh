@@ -62,7 +62,12 @@ public class PersonalManageController {
         }
     }
 
-    //这里
+    /**
+     * 用户修改个人信息
+     * @param request 携带Token的请求
+     * @param user 用户更改后的信息
+     * @return
+     */
     @RequestMapping( value = "personalUpdate",method = {RequestMethod.POST})
     public Msg personalUpdate(ServletRequest request,User user){
         Msg<User> userMsg=new Msg<>();

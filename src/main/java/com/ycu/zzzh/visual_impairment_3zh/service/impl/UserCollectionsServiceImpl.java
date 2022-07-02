@@ -28,6 +28,12 @@ public class UserCollectionsServiceImpl extends ServiceImpl<UserCollectionsMappe
     @Autowired
     private UserCollectionsMapper userCollectionsMapper;
 
+    /**
+     * 收藏新闻
+     * @param uid
+     * @param nid
+     * @return
+     */
     @Override
     public Msg collectNewsService(String uid, String nid) {
         Msg msg=new Msg();
@@ -48,6 +54,12 @@ public class UserCollectionsServiceImpl extends ServiceImpl<UserCollectionsMappe
 
     }
 
+    /**
+     * 取消收藏
+     * @param uid
+     * @param nid
+     * @return
+     */
     @Override
     public Msg noCollectNewsService(String uid, String nid) {
         Msg msg=new Msg();
@@ -58,6 +70,13 @@ public class UserCollectionsServiceImpl extends ServiceImpl<UserCollectionsMappe
         return msg;
     }
 
+    /**
+     * 查看收藏新闻
+     * @param page
+     * @param rows
+     * @param uid
+     * @return
+     */
     @Override
     public PageResult<NewsResult> CollectionInfoService(Integer page, Integer rows,String uid) {
         //1.创建分页对象存储分页信息

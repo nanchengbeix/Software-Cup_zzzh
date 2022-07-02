@@ -2,6 +2,7 @@ package com.ycu.zzzh.visual_impairment_3zh.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.ycu.zzzh.visual_impairment_3zh.common.constant.CommonConstants;
 import com.ycu.zzzh.visual_impairment_3zh.config.VoiceConfig;
 import com.ycu.zzzh.visual_impairment_3zh.model.result.Msg;
 import org.apache.http.HttpResponse;
@@ -24,13 +25,15 @@ import java.io.FileOutputStream;
 public class VoiceSynthesisUtils {
     public static void decoderBase64File(String base64Code, String targetPath)
             throws Exception {
+        String timeShort = DateUtil.getTimeShort();
+        String fileName=timeShort+"tts.raw";
         byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code.replace("\\n", "\r\n"));
-        FileOutputStream out = new FileOutputStream(targetPath + "\\tts1.raw");
+        FileOutputStream out = new FileOutputStream(targetPath + "\\"+fileName);
         out.write(buffer);
         out.close();
     }
 
-    public static Msg send(VoiceConfig.TtsReqParam vo, String iatHttpUrl) throws Exception {
+    public static String send(VoiceConfig.TtsReqParam vo, String iatHttpUrl) throws Exception {
         HttpPost httpPost = new HttpPost(iatHttpUrl);
         Msg msg=new Msg();
         // 设置HTTP数据
@@ -43,32 +46,28 @@ public class VoiceSynthesisUtils {
         String response = EntityUtils.toString(httpResponse.getEntity());
         JSONObject jsonObject = JSONObject.parseObject(response);
         if(jsonObject != null) {
-            System.out.println(jsonObject.toJSONString());
             JSONObject body = jsonObject.getJSONObject("body");
             if(body != null) {
                 String data = body.getString("data");
                 if(data != null && data.length() > 0) {
                     // System.out.println(data);
-                    //TODO 第二个参数改为raw文件(文字转语音的语音文件)存储路径
-                    decoderBase64File(data, "D:\\desktop\\我的文件夹\\软件杯\\移动云\\api示例文件");
-                    System.out.println("tts.raw created.");
-                    msg.setMsg("tts.raw created.");
-                    return msg;
+//                    //TODO 第二个参数改为raw文件(文字转语音的语音文件)存储路径
+//                    decoderBase64File(data, "\\home\\myblog\\yin");
+                    return data;
 
                 } else {
-                    System.out.println("no response.");
                     msg.setMsg("no response.");
-                    return msg;
+                    return CommonConstants.ERROE;
                 }
             } else {
                 System.out.println("no response.body");
-                msg.setMsg("no response.");
-                return msg;
+                msg.setMsg("no response.body");
+                return CommonConstants.ERROE;
             }
         } else {
             System.out.println("no response.jsonObject");
-            msg.setMsg("no response.");
-            return msg;
+            msg.setMsg("no response.jsonObject");
+            return CommonConstants.ERROE;
         }
     }
 }

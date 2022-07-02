@@ -9,6 +9,7 @@ import com.ycu.zzzh.visual_impairment_3zh.model.result.PageResult;
 import com.ycu.zzzh.visual_impairment_3zh.service.NewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,7 +68,8 @@ public class NewsController {
         //获取请求头中的token
         HttpServletRequest req= (HttpServletRequest) request;
         String token=req.getHeader(AUTH_HEADER);
-        if(token!=null&&token!=""){
+        //如果不为空
+        if(StringUtils.hasText(token)){
             //获取token中的用户id
             String uid = JwtUtils.getUserFiled(token, "uid");
             //获取新闻内容
@@ -93,6 +95,24 @@ public class NewsController {
         }
     }
 
+    /**
+     * 获取推荐新闻
+     */
+    public PageResult<NewsResult> recommendNews(
+            @RequestParam(value = "currentPage", required = false, defaultValue = "1") Integer currentPage,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+            ServletRequest request){
+        //获取请求头中的token
+        HttpServletRequest req= (HttpServletRequest) request;
+        String token=req.getHeader(AUTH_HEADER);
+        //如果不为空
+        if(StringUtils.hasText(token)){
+            //获取token中的用户id
+            String uid = JwtUtils.getUserFiled(token, "uid");
+
+        }
+        return null;
+    }
 
 
 

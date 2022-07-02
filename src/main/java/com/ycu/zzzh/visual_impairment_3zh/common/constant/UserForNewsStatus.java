@@ -2,7 +2,7 @@ package com.ycu.zzzh.visual_impairment_3zh.common.constant;
 
 /**
  * @ClassName UserForNewsStatus
- * @description: TODO
+ * @description: 用户新闻状态常量
  * @Date 2022/6/27 14:20
  * @Version 1.0
  **/

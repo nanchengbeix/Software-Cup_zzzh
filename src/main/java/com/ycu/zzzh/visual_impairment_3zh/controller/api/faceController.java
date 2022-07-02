@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName faceController
@@ -39,7 +42,7 @@ public class faceController {
 
     static {
 
-        Credential credential = new Credential(ApiConstants.user_ak, ApiConstants.user_sk);
+        Credential credential = new Credential(ApiConstants.USER_AK, ApiConstants.USER_SK);
         client = new ECloudDefaultClient(credential, Region.POOL_SZ);
     }
 
@@ -58,6 +61,7 @@ public class faceController {
         //TODO 需要判断人脸是否已经存在，是：删除人脸库中的数据，否：直接添加即可
         Msg msg=new Msg();
         //获取请求头中的token中的uid
+
         String uid = JwtUtils.tokenToId(req);
         JSONObject params = new JSONObject();
         //TODO 人脸库id写死
