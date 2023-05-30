@@ -42,8 +42,6 @@ spring boot
 
 Maven
 
-Tomcat
-
 Mybatis-plus
 
 RabitMQ
